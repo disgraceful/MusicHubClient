@@ -9,8 +9,11 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "jquery": "^3.3.1",
     "mdi": "^2.1.99",
     "vue": "^2.5.3",
+    "vue-carousel": "^0.6.15",
+    "vue-router": "^3.0.1",
     "vuetify": "^1.0.0"
   },
   "devDependencies": {

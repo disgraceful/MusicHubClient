@@ -12,20 +12,19 @@
                     <v-tab>Home </v-tab>
                     <v-tab>Recommendations</v-tab>
                     <v-tab>Radio</v-tab>
+                    <v-menu :nudge-width="100">
+                        <v-btn flat depressed slot="activator">
+                            Genres
+                            <v-icon dark>arrow_drop_down</v-icon>
+                        </v-btn>
+                        <v-list>
+                            <v-list-tile v-for="item in items" :key="item">
+                                <v-list-tile-title v-text="item"></v-list-tile-title>
+                            </v-list-tile>
+                        </v-list>
+                    </v-menu>
                 </v-tabs>
             </div>
-
-            <v-menu :nudge-width="100">
-                <v-btn flat depressed slot="activator">
-                    Genres
-                    <v-icon dark>arrow_drop_down</v-icon>
-                </v-btn>
-                <v-list>
-                    <v-list-tile v-for="item in items" :key="item">
-                        <v-list-tile-title v-text="item"></v-list-tile-title>
-                    </v-list-tile>
-                </v-list>
-            </v-menu>
 
             <v-spacer></v-spacer>
             <v-btn icon>
@@ -45,13 +44,6 @@
                 </v-list>
             </v-menu>
         </v-toolbar>
-
-
-
-
-
-
-
     </div>
 </template>
 
@@ -59,7 +51,7 @@
     export default {
         data() {
             return {
-                items: ["Item1", "Item2", "Item3"]
+                items: ["Genre1", "Genre2", "Genre3"]
             }
         }
     };
@@ -68,10 +60,11 @@
 <style scoped>
     #tabs {
         display: flex;
-        padding-left:5px;
-        padding-right:5px;
+        padding-left: 5px;
+        padding-right: 5px;
     }
-    #search{
-        width:400px;
+
+    #search {
+        width: 400px;
     }
 </style>
