@@ -24,7 +24,8 @@
     import {
         Carousel,
         Slide
-    } from 'vue-carousel';
+    } from 'vue-carousel'
+
     export default {
         data() {
             return {
@@ -36,7 +37,7 @@
         },
         components: {
             Carousel,
-            Slide,
+            Slide
         }
     }
 </script>
