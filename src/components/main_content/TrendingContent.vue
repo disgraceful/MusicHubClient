@@ -6,8 +6,10 @@
         <v-container fluid grid-list-lg>
             <v-layout row wrap>
                 <v-flex xs12 v-for="index in 15" :key="index">
-                    <mh-song></mh-song>
-                    
+                    <mh-song :number="index"></mh-song>
+
+                   
+
                 </v-flex>
             </v-layout>
         </v-container>
@@ -19,6 +21,7 @@
     import Song from '../shared/Song'
 
     export default {
+
         components: {
             'mh-song': Song
         }

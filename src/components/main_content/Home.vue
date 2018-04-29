@@ -12,10 +12,10 @@
                             <router-link to="/new" tag="v-tab">New</router-link>
                             <router-link to="/top" tag="v-tab">Top</router-link>
                             <router-link to="/trending" tag="v-tab">Trending</router-link>
-                            
+
                         </v-tabs>
                     </v-card-actions>
-                    <router-view></router-view>
+                    <v-tabs-items></v-tabs-items>
                 </v-card>
             </v-flex>
         </v-layout>
@@ -29,6 +29,25 @@
     } from 'vue-carousel';
 
     export default {
+        data() {
+            return {
+                tab: null,
+                tabs: [{
+                    name: "All",
+                    route: "/home"
+
+                }, {
+                    name: "New",
+                    route: "/new"
+                }, {
+                    name: "Top",
+                    route: "/trending"
+                }, {
+                    name: "Trending",
+                    route: "/trending"
+                }]
+            }
+        },
         components: {
             Carousel,
             Slide
