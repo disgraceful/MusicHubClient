@@ -3,6 +3,7 @@ import HomeContent from '../components/main_content/HomeContent.vue'
 import NewContent from '../components/main_content/NewContent.vue'
 import TopContent from '../components/main_content/TopContent.vue'
 import TrendingContent from '../components/main_content/TrendingContent.vue'
+import Recommeded from '../components/recommendations/Recommended.vue'
 
 export const routes = [{
         path: '/',
@@ -24,6 +25,11 @@ export const routes = [{
             component: TrendingContent,
             name: 'Trending'
         }]
+    }, {
+        path: '/recommended',
+        component: Recommeded,
+        name: 'Recommended'
+
     }
 
 

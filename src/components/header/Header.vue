@@ -8,8 +8,8 @@
         <v-spacer></v-spacer>
         <div id="tabs">
             <v-tabs right color="primary">
-                <v-tab>Home </v-tab>
-                <v-tab>Recommendations</v-tab>
+                <router-link :to="{name:'Home'}" tag="v-tab">Home</router-link>
+                <router-link :to="{name:'Recommended'}" tag="v-tab">Recommended</router-link>
                 <v-menu :nudge-width="100">
                     <v-btn flat depressed slot="activator">
                         Genres
