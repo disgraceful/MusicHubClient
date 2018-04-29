@@ -24,7 +24,7 @@
 </template>
 
 <script>
-    import MHCarousel from "./Carousel.vue";
+    import MHCarousel from "../shared/Carousel.vue";
     export default {
         components: {
             'mh-carousel': MHCarousel

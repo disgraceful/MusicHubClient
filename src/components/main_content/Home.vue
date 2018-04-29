@@ -1,25 +1,21 @@
 <template>
-    <div>
-        <v-layout>
-            <v-flex>
-                <v-card>
-                    <v-card-title primary-title>
-                        <h1>Home</h1>
-                    </v-card-title>
-                    <v-card-actions>
-                        <v-tabs right slider-color="red">
-                            <router-link to="/home" tag="v-tab">All</router-link>
-                            <router-link to="/new" tag="v-tab">New</router-link>
-                            <router-link to="/top" tag="v-tab">Top</router-link>
-                            <router-link to="/trending" tag="v-tab">Trending</router-link>
-
-                        </v-tabs>
-                    </v-card-actions>
-                    <v-tabs-items></v-tabs-items>
-                </v-card>
-            </v-flex>
-        </v-layout>
-    </div>
+    <v-layout>
+        <v-flex>
+            <v-card>
+                <v-card-title primary-title>
+                    <h1>Home</h1>
+                </v-card-title>
+                <v-card-actions>
+                    <v-tabs right slider-color="red" v-model="tab">
+                        <router-link v-for="item in tabs" :key="item.name" :to="item.route" tag="v-tab">{{item.name}}</router-link>
+                    </v-tabs>
+                </v-card-actions>
+                <v-tabs-items v-model="tab">
+                    <router-view></router-view>
+                </v-tabs-items>
+            </v-card>
+        </v-flex>
+    </v-layout>
 </template>
 
 <script>
@@ -35,13 +31,12 @@
                 tabs: [{
                     name: "All",
                     route: "/home"
-
                 }, {
                     name: "New",
                     route: "/new"
                 }, {
                     name: "Top",
-                    route: "/trending"
+                    route: "/top"
                 }, {
                     name: "Trending",
                     route: "/trending"

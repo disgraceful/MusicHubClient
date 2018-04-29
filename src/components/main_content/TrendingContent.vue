@@ -7,9 +7,6 @@
             <v-layout row wrap>
                 <v-flex xs12 v-for="index in 15" :key="index">
                     <mh-song :number="index"></mh-song>
-
-                   
-
                 </v-flex>
             </v-layout>
         </v-container>

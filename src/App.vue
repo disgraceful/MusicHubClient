@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <mh-header></mh-header> 
-    <mh-home></mh-home>
+    <router-view></router-view>
     <mh-player></mh-player> 
   </v-app>
 </template>

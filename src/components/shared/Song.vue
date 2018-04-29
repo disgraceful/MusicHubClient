@@ -4,7 +4,7 @@
             <v-layout row>
                 <v-flex shrink>
                     <v-container fill-height>
-                        <div>
+                        <div style="width:15px; display:inline-block">
                             {{number}}
                         </div>
                     </v-container>
