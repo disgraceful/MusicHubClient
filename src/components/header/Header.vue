@@ -1,6 +1,6 @@
 <template>
     <v-toolbar dark color="primary">
-        <v-btn flat depressed> Music Hub </v-btn>
+        <v-btn :to="{name:'Home'}" flat depressed> Music Hub </v-btn>
         <div id="search">
             <v-text-field flat solo-inverted placeholder="Search" prepend-icon="search" hide-details single-line>
             </v-text-field>
@@ -28,7 +28,6 @@
         <v-btn :to="{name:'Consumer', params:{id:1}}" flat depressed>
             <v-icon left>favorite_border</v-icon>
             Favorites
-
         </v-btn>
 
         <v-menu :nudge-width="100">
