@@ -7,7 +7,11 @@
                 </v-card-title>
                 <v-card-actions>
                     <v-tabs right slider-color="red" v-model="tab">
-                        <router-link v-for="item in tabs" :key="item.name" :to="item.route" tag="v-tab">{{item.name}}</router-link>
+                        <router-link v-for="item in tabs" 
+                                    :key="item.name"
+                                    :to="item.route"
+                                    tag="v-tab"
+                                    >{{item.name}}</router-link>
                     </v-tabs>
                 </v-card-actions>
                 <v-tabs-items v-model="tab">

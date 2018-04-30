@@ -24,13 +24,17 @@
             </v-tabs>
         </div>
         <v-spacer></v-spacer>
-        <v-btn icon>
-            <v-icon>favorite_border</v-icon>
+
+        <v-btn :to="{name:'Consumer', params:{id:1}}" flat depressed>
+            <v-icon left>favorite_border</v-icon>
+            Favorites
+
         </v-btn>
+
         <v-menu :nudge-width="100">
             <v-btn flat depressed slot="activator">
                 <v-avatar size="30px">
-                    <img src="../../../public/favicon-32x32.png">
+                    <img src="http://via.placeholder.com/30x30">
                     <v-icon dark>arrow_drop_down</v-icon>
                 </v-avatar>
             </v-btn>

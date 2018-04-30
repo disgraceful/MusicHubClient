@@ -22,3 +22,12 @@ import Home from "./components/main_content/Home"
     }
   }
 </script>
+
+<style>
+.flex.shrink{
+    flex-grow: 0;flex-shrink: 1
+}
+.flex.shrink{
+    flex-shrink: 0;flex-grow: 1
+}
+</style>
