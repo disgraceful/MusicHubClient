@@ -1,20 +1,20 @@
 <template>
-    <v-card>
+    <v-card flat>
         <v-card-title>
             <div>
-                <div class="headline">Artists</div>
+                <div class="headline">Similar</div>
             </div>
         </v-card-title>
         <v-container fluid grid-list-xl>
             <v-layout row wrap>
-                <v-flex xs2 v-for="index in 30" :key="index">
+                <v-flex xs2 v-for="index in 10" :key="index">
                     <v-card :to="{name:'Artist'}">
                         <div class="text-xs-center">
                             <v-avatar size="200px">
                                 <img src="http://via.placeholder.com/200x200">
                             </v-avatar>
                         </div>
-                        
+
                         <v-card-title>
                             <v-flex pa-0>
                                 <div class="text-xs-left">
@@ -27,11 +27,11 @@
                 </v-flex>
             </v-layout>
         </v-container>
+
     </v-card>
 </template>
-
 <script>
     export default {
-        
+
     }
 </script>

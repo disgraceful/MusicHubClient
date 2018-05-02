@@ -10,57 +10,80 @@ import ConsumerFavAlbums from '../components/profile/consumer/ConsumerAlbums.vue
 import ConsumerFavArtists from '../components/profile/consumer/ConsumerArtists.vue'
 import ConsumerFavPlaylists from '../components/profile/consumer/ConsumerPlaylists.vue'
 import ConsumerFavHistory from '../components/profile/consumer/ConsumerHistory.vue'
+import Artist from '../components/artist/Artist.vue'
+import ArtistTracks from '../components/artist/ArtistTracks.vue'
+import ArtistAlbums from '../components/artist/ArtistAlbums.vue'
+import ArtistGeneral from '../components/artist/ArtistGeneral.vue'
+import ArtistSimilar from '../components/artist/ArtistSimilar.vue'
 
 export const routes = [{
-        path: '/',
-        component: Home,
-        children: [{
-            path: 'home',
-            component: HomeContent,
-            name: 'Home'
-        }, {
-            path: 'new',
-            component: NewContent,
-            name: 'New'
-        }, {
-            path: 'top',
-            component: TopContent,
-            name: 'Top'
-        }, {
-            path: 'trending',
-            component: TrendingContent,
-            name: 'Trending'
-        }]
+    path: '/',
+    component: Home,
+    children: [{
+        path: 'home',
+        component: HomeContent,
+        name: 'Home'
     }, {
-        path: '/recommended',
-        component: Recommeded,
-        name: 'Recommended'
+        path: 'new',
+        component: NewContent,
+        name: 'New'
     }, {
-        path: '/user/:id',
-        component: Consumer,
-        name: 'Consumer',
-        children: [{
-            path: 'tracks',
-            component: ConsumerFavTracks,
-            name: 'ConsumerTracks'
-        }, {
-            path: 'albums',
-            component: ConsumerFavAlbums,
-            name: 'ConsumerAlbums'
-        }, {
-            path: 'artists',
-            component: ConsumerFavArtists,
-            name: 'ConsumerArtists'
-        }, {
-            path: 'playlists',
-            component: ConsumerFavPlaylists,
-            name: 'ConsumerPlaylists'
-        }, {
-            path: 'history',
-            component: ConsumerFavHistory,
-            name: 'ConsumerHistory'
-        }]
-    }
-
-
-];
+        path: 'top',
+        component: TopContent,
+        name: 'Top'
+    }, {
+        path: 'trending',
+        component: TrendingContent,
+        name: 'Trending'
+    }]
+}, {
+    path: '/recommended',
+    component: Recommeded,
+    name: 'Recommended'
+}, {
+    path: '/user/:id',
+    component: Consumer,
+    name: 'Consumer',
+    children: [{
+        path: 'tracks',
+        component: ConsumerFavTracks,
+        name: 'ConsumerTracks'
+    }, {
+        path: 'albums',
+        component: ConsumerFavAlbums,
+        name: 'ConsumerAlbums'
+    }, {
+        path: 'artists',
+        component: ConsumerFavArtists,
+        name: 'ConsumerArtists'
+    }, {
+        path: 'playlists',
+        component: ConsumerFavPlaylists,
+        name: 'ConsumerPlaylists'
+    }, {
+        path: 'history',
+        component: ConsumerFavHistory,
+        name: 'ConsumerHistory'
+    }]
+}, {
+    path: '/artist/:id',
+    component: Artist,
+    name: 'Artist',
+    children: [{
+        path: '',
+        component: ArtistGeneral,
+        name: 'ArtistGeneral'
+    }, {
+        path: 'tracks',
+        component: ArtistTracks,
+        name: 'ArtistTracks'
+    }, {
+        path: 'albums',
+        component: ArtistAlbums,
+        name: 'ArtistAlbums'
+    }, {
+        path: 'similar',
+        component: ArtistSimilar,
+        name: 'ArtistSimilar'
+    }]
+}];

@@ -28,11 +28,8 @@
 
             <v-card-actions>
                 <v-tabs right slider-color="red">
-                    <router-link v-for="item in tabs"
-                                :key="item.name"
-                                :to="{name:item.route,params:{id:$route.params.id}}"
-                                tag="v-tab">{{item.name}}</router-link> 
-                   
+                    <router-link v-for="item in tabs" :key="item.name" :to="{name:item.route,params:{id:$route.params.id}}" tag="v-tab">{{item.name}}</router-link>
+
                 </v-tabs>
             </v-card-actions>
             <v-tabs-items v-model="tab">
@@ -53,17 +50,17 @@
                     route: "ConsumerTracks",
                 }, {
                     name: "Albums",
-                    route:"ConsumerAlbums"
+                    route: "ConsumerAlbums"
 
                 }, {
                     name: "Artists",
-                    route:"ConsumerArtists"
+                    route: "ConsumerArtists"
                 }, {
                     name: "Playlists",
-                    route:"ConsumerPlaylists"
+                    route: "ConsumerPlaylists"
                 }, {
                     name: "History",
-                    route:"ConsumerHistory"
+                    route: "ConsumerHistory"
                 }]
             }
         }

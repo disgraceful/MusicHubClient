@@ -34,7 +34,7 @@
                 <v-container fluid grid-list-lg>
                     <v-layout row wrap>
                         <v-flex xs12 v-for="index in 5" :key="index">
-                            <mh-song :number="index"></mh-song>
+                            <mh-song-unlisted></mh-song-unlisted>
                         </v-flex>
                     </v-layout>
                 </v-container>
@@ -68,7 +68,7 @@
                 <v-container fluid grid-list-lg>
                     <v-layout row wrap>
                         <v-flex xs12 v-for="index in 5" :key="index">
-                            <mh-song :number="index"></mh-song>
+                            <mh-song-unlisted></mh-song-unlisted>
                         </v-flex>
                     </v-layout>
                 </v-container>
@@ -78,10 +78,10 @@
 </template>
 
 <script>
-    import Song from '../shared/Song'
+    import Song from '../shared/SongUnlisted'
     export default {
         components: {
-            'mh-song': Song
+            'mh-song-unlisted': Song
         }
     }
 </script>
