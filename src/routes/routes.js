@@ -15,6 +15,7 @@ import ArtistTracks from '../components/artist/ArtistTracks.vue'
 import ArtistAlbums from '../components/artist/ArtistAlbums.vue'
 import ArtistGeneral from '../components/artist/ArtistGeneral.vue'
 import ArtistSimilar from '../components/artist/ArtistSimilar.vue'
+import Album from '../components/albums/Album.vue'
 
 export const routes = [{
     path: '/',
@@ -68,7 +69,6 @@ export const routes = [{
 }, {
     path: '/artist/:id',
     component: Artist,
-    name: 'Artist',
     children: [{
         path: '',
         component: ArtistGeneral,
@@ -86,4 +86,8 @@ export const routes = [{
         component: ArtistSimilar,
         name: 'ArtistSimilar'
     }]
+}, {
+    path: '/albums/:id',
+    component: Album,
+    name: 'Album'
 }];

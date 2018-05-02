@@ -8,7 +8,7 @@
        <v-container fluid grid-list-xl>
             <v-layout row wrap>
                 <v-flex xs2 v-for="index in 30" :key="index">
-                    <v-card>
+                    <v-card :to="{name:'Album'}">
                         <v-card-media src="http://via.placeholder.com/350x150" height="150px">
                         </v-card-media>
                         <v-card-title >

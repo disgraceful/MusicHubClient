@@ -8,7 +8,7 @@
         <v-container fluid grid-list-xl>
             <v-layout row wrap>
                 <v-flex xs2 v-for="index in 30" :key="index">
-                    <v-card :to="{name:'Artist'}">
+                    <v-card :to="{name:'ArtistGeneral'}">
                         <div class="text-xs-center">
                             <v-avatar size="200px">
                                 <img src="http://via.placeholder.com/200x200">
