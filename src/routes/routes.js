@@ -16,6 +16,9 @@ import ArtistAlbums from '../components/artist/ArtistAlbums.vue'
 import ArtistGeneral from '../components/artist/ArtistGeneral.vue'
 import ArtistSimilar from '../components/artist/ArtistSimilar.vue'
 import Album from '../components/albums/Album.vue'
+import Login from '../components/login/Login.vue'
+import RegisterConsumer from '../components/login/RegisterConsumer.vue'
+import RegisterPublisher from '../components/login/RegisterPublisher.vue'
 
 export const routes = [{
     path: '/',
@@ -90,4 +93,16 @@ export const routes = [{
     path: '/albums/:id',
     component: Album,
     name: 'Album'
+}, {
+    path: '/login',
+    component: Login,
+    name: 'Login'
+}, {
+    path: '/register',
+    component: RegisterConsumer,
+    name: 'RegisterConsumer'
+}, {
+    path: '/register/publisher',
+    component: RegisterPublisher,
+    name: 'RegisterPublisher'
 }];

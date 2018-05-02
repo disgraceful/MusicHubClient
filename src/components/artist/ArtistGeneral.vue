@@ -5,7 +5,7 @@
                 <v-card-title primary-title>
                     <h3>Popular tracks</h3>
                 </v-card-title>
-                <v-container pa-0>
+                <v-container>
                     <v-flex class="text-xs-right">
                         <router-link :to="{name:'ArtistTracks',params:{id:$route.params.id}}" tag="a">All tracks</router-link>
                     </v-flex>
@@ -25,7 +25,7 @@
                 <v-card-title primary-title>
                     <h3>Popular albums</h3>
                 </v-card-title>
-                <v-container pa-0>
+                <v-container>
                     <v-flex class="text-xs-right">
                         <router-link :to="{name:'ArtistAlbums',params:{id:$route.params.id}}" tag="a">All albums</router-link>
                     </v-flex>
@@ -79,7 +79,7 @@
                 <v-card-title primary-title>
                     <h3>Similar artists</h3>
                 </v-card-title>
-                <v-container pa-0>
+                <v-container>
                     <v-flex class="text-xs-right">
                         <router-link :to="{name:'ArtistSimilar',params:{id:$route.params.id}}" tag="a">All artists</router-link>
                     </v-flex>
