@@ -19,6 +19,7 @@ import Album from '../components/albums/Album.vue'
 import Login from '../components/login/Login.vue'
 import RegisterConsumer from '../components/login/RegisterConsumer.vue'
 import RegisterPublisher from '../components/login/RegisterPublisher.vue'
+import ConsumerSettings from '../components/profile/consumer/ConsumerSettings.vue'
 
 export const routes = [{
     path: '/',
@@ -105,4 +106,8 @@ export const routes = [{
     path: '/register/publisher',
     component: RegisterPublisher,
     name: 'RegisterPublisher'
+}, {
+    path: '/user/:id/settings',
+    component: ConsumerSettings,
+    name: 'ConsumerSettings'
 }];

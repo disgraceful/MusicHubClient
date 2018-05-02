@@ -21,7 +21,7 @@
                 </v-flex>
                 <v-flex>
                     <div class="text-xs-right">
-                        <v-btn small color="white">Settings</v-btn>
+                        <v-btn small color="white" :to="{name:'ConsumerSettings',params:{id:$route.params.id}}">Settings</v-btn>
                     </div>
                 </v-flex>
             </v-layout>

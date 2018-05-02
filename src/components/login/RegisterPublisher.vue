@@ -69,8 +69,6 @@
                     axios.post('/api/submit', {
                         name: this.name,
                         email: this.email,
-                        select: this.select,
-                        checkbox: this.checkbox
                     })
                 }
             },
