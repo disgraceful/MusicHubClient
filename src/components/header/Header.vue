@@ -16,8 +16,8 @@
                         <v-icon dark>arrow_drop_down</v-icon>
                     </v-btn>
                     <v-list>
-                        <v-list-tile v-for="item in items" :key="item">
-                            <v-list-tile-title v-text="item"></v-list-tile-title>
+                        <v-list-tile v-for="genre in genres" :key="genre.name">
+                            <router-link tag="v-list-tile-title" :to="{name:'Genre',params:{id:genre.id}}">{{genre.name}}</router-link>
                         </v-list-tile>
                     </v-list>
                 </v-menu>
@@ -38,8 +38,8 @@
                 </v-avatar>
             </v-btn>
             <v-list>
-                <v-list-tile v-for="item in items" :key="item">
-                    <v-list-tile-title v-text="item"></v-list-tile-title>
+                <v-list-tile v-for="action in userActions" :key="action.name">
+                    <v-list-tile-title v-text="action.name"></v-list-tile-title>
                 </v-list-tile>
             </v-list>
         </v-menu>
@@ -50,7 +50,26 @@
     export default {
         data() {
             return {
-                items: ["Genre1", "Genre2", "Genre3"]
+                genres: [{
+                    name: "Genre1",
+                    id: 1
+                }, {
+                    name: "Genre2",
+                    id: 2
+                }, {
+                    name: "Genre3",
+                    id: 3
+                }],
+                userActions: [{
+                        name: "My Music"
+                    },
+                    {
+                        name: "Settings"
+                    },
+                    {
+                        name: "Logout"
+                    }
+                ]
             }
         }
     };

@@ -3,7 +3,9 @@
         <v-card>
             <v-layout row>
                 <v-card-title primary-title>
-                    <h3>Popular tracks</h3>
+                    <div class="title" style="width:200px">
+                    Popular tracks
+                    </div>
                 </v-card-title>
                 <v-container>
                     <v-flex class="text-xs-right">
@@ -23,7 +25,9 @@
         <v-card>
             <v-layout row>
                 <v-card-title primary-title>
-                    <h3>Popular albums</h3>
+                    <div class="title" style="width:200px">
+                    Popular albums
+                    </div>
                 </v-card-title>
                 <v-container>
                     <v-flex class="text-xs-right">
@@ -77,7 +81,9 @@
         <v-card>
             <v-layout row>
                 <v-card-title primary-title>
-                    <h3>Similar artists</h3>
+                   <div class="title" style="width:200px">
+                    Similar artists
+                    </div>
                 </v-card-title>
                 <v-container>
                     <v-flex class="text-xs-right">

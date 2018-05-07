@@ -20,6 +20,7 @@ import Login from '../components/login/Login.vue'
 import RegisterConsumer from '../components/login/RegisterConsumer.vue'
 import RegisterPublisher from '../components/login/RegisterPublisher.vue'
 import ConsumerSettings from '../components/profile/consumer/ConsumerSettings.vue'
+import Genre from '../components/genre/Genre.vue'
 
 export const routes = [{
     path: '/',
@@ -110,4 +111,8 @@ export const routes = [{
     path: '/user/:id/settings',
     component: ConsumerSettings,
     name: 'ConsumerSettings'
+}, {
+    path: '/genre/:id',
+    component: Genre,
+    name: 'Genre'
 }];
