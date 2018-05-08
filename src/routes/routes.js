@@ -24,7 +24,6 @@ import Genre from '../components/genre/Genre.vue'
 import Publisher from '../components/profile/publisher/Publisher.vue'
 import PublisherTracks from '../components/profile/publisher/PublisherTracks.vue'
 import PublisherAlbums from '../components/profile/publisher/PublisherAlbums.vue'
-import PublisherUpload from '../components/profile/publisher/PublisherUpload.vue'
 
 export const routes = [{
     path: '/',
@@ -130,9 +129,5 @@ export const routes = [{
         path: 'albums',
         component: PublisherAlbums,
         name: 'PublisherAlbums'
-    }, {
-        path: 'upload',
-        component: PublisherUpload,
-        name: 'PublisherUpload'
     }]
 }];

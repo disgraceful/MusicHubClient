@@ -38,9 +38,6 @@
                     name: "Albums",
                     route: "PublisherAlbums"
 
-                }, {
-                    name: "Upload",
-                    route: "PublisherUpload"
                 }]
             }
         }
