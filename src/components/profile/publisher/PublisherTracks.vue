@@ -1,11 +1,14 @@
 <template>
-<v-card flat>
-      <v-card-title>
-          <div>
-              <div class="headline">Tracks</div>
-          </div>
-      </v-card-title>
-       <v-layout row>
+    <v-card>
+        <v-layout row>
+            <v-card-title>
+                <div>
+                    <div class="headline">Tracks</div>
+                </div>
+            </v-card-title>
+           
+        </v-layout>
+        <v-layout row>
             <v-flex xs12>
                 <v-card flat>
                     <v-container pa-0 fluid px-0>
@@ -30,7 +33,7 @@
                                      <v-flex xs6 >
                                         <div class="text-xs-left">
                                             <v-layout row>
-                                                <div class="grey--text">Album name</div>
+                                                <div class="grey--text">Album Name</div>
                                                 <v-icon>arrow_drop_down</v-icon>
                                             </v-layout>
                                         </div>
@@ -47,12 +50,11 @@
                 <mh-song-mini :number="item"></mh-song-mini>
             </v-flex>
         </v-layout>
-       
-  </v-card>
+    </v-card>
 </template>
 
 <script>
- import SongMini from '../shared/SongMini.vue'
+    import SongMini from '../../shared/SongMini'
     export default {
         components: {
             'mh-song-mini': SongMini

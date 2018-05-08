@@ -10,7 +10,7 @@
             <v-tabs right color="primary">
                 <router-link :to="{name:'Home'}" tag="v-tab">Home</router-link>
                 <router-link :to="{name:'Recommended'}" tag="v-tab">Recommended</router-link>
-                <v-menu :nudge-width="100">
+                <v-menu :nudge-width="100" offset-y>
                     <v-btn flat depressed slot="activator">
                         Genres
                         <v-icon dark>arrow_drop_down</v-icon>
@@ -30,7 +30,8 @@
             Favorites
         </v-btn>
 
-        <v-menu :nudge-width="100">
+        <v-menu :nudge-width="100"
+        offset-y>
             <v-btn flat depressed slot="activator">
                 <v-avatar size="30px">
                     <img src="http://via.placeholder.com/30x30">
