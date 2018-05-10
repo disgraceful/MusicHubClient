@@ -12,6 +12,14 @@
                             <div class="grey--text">genre</div>
                         </div>
                     </v-flex>
+
+                    <mh-pub-upload></mh-pub-upload>
+                    <!-- <v-layout row wrap style="padding-top:20px">
+                        <v-btn round color="white">
+                            Upload song
+                        </v-btn>
+                    </v-layout> -->
+
                 </v-container>
             </v-layout>
         </v-container>
@@ -28,6 +36,7 @@
 </template>
 
 <script>
+import PublisherUpload from './PublisherUpload'
     export default {
         data() {
             return {
@@ -37,9 +46,11 @@
                 }, {
                     name: "Albums",
                     route: "PublisherAlbums"
-
                 }]
             }
+        },
+        components:{
+            'mh-pub-upload':PublisherUpload
         }
     }
 </script>
