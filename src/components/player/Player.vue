@@ -2,7 +2,7 @@
     <div id="player">
         <v-card tile>
             <v-container pa-0 style="height:75px">
-                <v-progress-linear height="3" :value="50" class="my-0"></v-progress-linear>
+                <v-progress-linear height="3" v-model="progress" class="my-0"></v-progress-linear>
                 <v-layout row>
                     <v-flex shrink>
                         <v-container pa-0 fill-height>
@@ -31,7 +31,7 @@
                         </v-container>
                     </v-flex>
                     <v-card-title>
-                        <div class="text-xs-left" style="width:80px">
+                        <div class="text-xs-left" style="width:120px">
                             <div class="text--black">{{currentSong.name}}</div>
                             <div class="grey--text">{{currentSong.author}}</div>
                         </div>
@@ -78,14 +78,12 @@
                     </v-flex>
                 </v-layout>
             </v-container>
-
-
         </v-card>
     </div>
 </template>
 
 <script>
-import AddToPlaylist from './AddToPlaylistDialog'
+    import AddToPlaylist from './AddToPlaylistDialog'
     export default {
         data() {
             return {
@@ -118,66 +116,85 @@ import AddToPlaylist from './AddToPlaylistDialog'
                     author: " ",
                     duration: "",
                     url: ''
-
                 },
                 currentAudio: null,
+                currentDuration: 0,
+                progress: 0,
                 currentIndex: 0,
             }
         },
         methods: {
             play(song) {
-                console.log(this.currentSong);
-                if (!this.currentSong.url) {
+                if (!this.currentAudio) {
                     this.currentSong = song;
                     this.currentAudio = new Audio(this.currentSong.url);
+                    this.currentAudio.addEventListener('canplay', () => {
+                        this.currentDuration = this.getDuration(this.currentSong.duration);
+                    });
+                    this.currentAudio.addEventListener('timeupdate', () => {
+                        this.progress = Math.trunc(this.currentAudio.currentTime / this.currentDuration * 100);
+                    });
+
                 }
-                console.log(this.currentSong.url);
                 if (!this.playing) {
                     this.currentAudio.play();
                     this.playing = true;
                 } else {
                     this.currentAudio.pause();
                     this.playing = false;
+
                 }
             },
             next() {
                 if (this.currentIndex < this.songs.length - 1) {
                     this.currentIndex++;
                     this.currentAudio.pause();
-                    this.currentSong = this.songs[this.currentIndex];
-                    this.currentAudio = new Audio(this.currentSong.url);
-                    this.playing = true;
-                    this.currentAudio.play();
+                    this.playing = false;
+                    this.currentAudio = null;
+                    this.play(this.songs[this.currentIndex]);
                 }
             },
             prev() {
-                if (this.currentIndex <= 0) {
-                    return;
+                if (this.currentIndex > 0) {
+                    this.currentIndex--;
+                    this.currentAudio.pause();
+                    this.playing = false;
+                    this.currentAudio = null;
+                    this.play(this.songs[this.currentIndex]);
                 }
-                this.currentIndex--;
-                this.currentAudio.pause();
-                this.currentSong = this.songs[this.currentIndex];
-                this.currentAudio = new Audio(this.currentSong.url);
-                this.playing = true;
-                this.currentAudio.play();
             },
             fav() {
 
             },
             add() {
 
-            }
+            },
+            getDuration(duration) {
+                var a = duration.split(':');
+                return ((+a[0]) * 60 + (+a[1]));
+            },
+        },
+        components: {
+            'mh-add-dialog': AddToPlaylist,
+        },
+        mounted() {
+            this.currentSong = this.songs[0];
+            this.currentAudio = new Audio(this.currentSong.url);
+            this.currentAudio.addEventListener('canplay', () => {
+                this.currentDuration = this.getDuration(this.currentSong.duration);
+            });
+            this.currentAudio.addEventListener('timeupdate', () => {
+                this.progress = Math.trunc(this.currentAudio.currentTime / this.currentDuration * 100);
+            });
 
-        },components:{
-            'mh-add-dialog':AddToPlaylist
-        }
+
+        },
     }
 </script>
 
 <style scoped>
     #player {
         position: fixed;
-
         bottom: 0;
         width: 70%;
         margin-left: 15%;
