@@ -1,5 +1,5 @@
 <template>
-    <div style="max-width:600px;">
+    <div class="login">
         <v-card>
             <div class="text-xs-right">
                 <v-card-title>
@@ -80,3 +80,13 @@
         }
     }
 </script>
+
+<style scoped>
+    .login  {
+        width: 600px  !important;
+        position: fixed  !important;
+        top: 25%  !important;
+        left: 50%  !important;
+        margin-left: -300px  !important; 
+    }
+</style>

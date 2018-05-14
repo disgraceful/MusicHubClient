@@ -10,7 +10,6 @@
 
 import Player from "./components/player/Player"
 import Header from "./components/header/Header"
-import Home from "./components/main_content/Home"
 
 
   export default {
@@ -18,8 +17,7 @@ import Home from "./components/main_content/Home"
     components:{
       'mh-player':Player,
       'mh-header':Header,
-      'mh-home': Home
-    }
+     }
   }
 </script>
 

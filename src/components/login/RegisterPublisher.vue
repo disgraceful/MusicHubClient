@@ -1,5 +1,5 @@
 <template>
-    <div style="max-width:600px">
+    <div class="register">
         <v-card>
             <div class="text-xs-center">
                 <v-card-title>
@@ -78,3 +78,13 @@
         }
     }
 </script>
+
+<style scoped>
+.register  {
+        width: 600px  !important;
+        position: fixed  !important;
+        top: 25%  !important;
+        left: 50%  !important;
+        margin-left: -300px  !important; 
+    }
+</style>
