@@ -1,7 +1,6 @@
 <template>
-    <div id="player">
-        <v-card tile>
-            <v-container pa-0 style="height:75px">
+    <div class="player">
+        <v-card >
                 <v-progress-linear height="3" v-model="progress" class="my-0"></v-progress-linear>
                 <v-layout row>
                     <v-flex shrink>
@@ -77,7 +76,6 @@
                         </v-container>
                     </v-flex>
                 </v-layout>
-            </v-container>
         </v-card>
     </div>
 </template>
@@ -87,6 +85,7 @@
     export default {
         data() {
             return {
+                progressBarHovered: false,
                 playlistDialog: false,
                 songs: [{
                         name: "Kill Yourself",
@@ -134,7 +133,6 @@
                     this.currentAudio.addEventListener('timeupdate', () => {
                         this.progress = Math.trunc(this.currentAudio.currentTime / this.currentDuration * 100);
                     });
-
                 }
                 if (!this.playing) {
                     this.currentAudio.play();
@@ -186,17 +184,16 @@
             this.currentAudio.addEventListener('timeupdate', () => {
                 this.progress = Math.trunc(this.currentAudio.currentTime / this.currentDuration * 100);
             });
-
-
         },
     }
 </script>
 
 <style scoped>
-    #player {
+    .player {
         position: fixed;
-        bottom: 0;
+        bottom: 0px;
         width: 70%;
+        height: 75px;
         margin-left: 15%;
         margin-right: 15%;
     }
