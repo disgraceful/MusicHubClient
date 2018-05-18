@@ -28,7 +28,10 @@
                             <v-layout row>
                                 <v-btn round color="primary">fb</v-btn>
                                 <v-btn round color="secondary">tw</v-btn>
-                                <v-btn round color="error">g+</v-btn>
+                                <!-- <v-btn round color="error">g+</v-btn> -->
+                                <g-signin-button :params="googleSignInParams" @success="onSignInSuccess" @error="onSignInError">
+                                    Google
+                                </g-signin-button>
                             </v-layout>
                         </v-flex>
 
@@ -64,7 +67,17 @@
             password: '',
             passwordRules: [
                 v => !!v || 'Password is required'
-            ]
+            ],
+            /**
+             * The Auth2 parameters, as seen on
+             * https://developers.google.com/identity/sign-in/web/reference#gapiauth2initparams.
+             * As the very least, a valid client_id must present.
+             * @type {Object}
+             */
+            googleSignInParams: {
+                client_id: '100485869370-r3cg6jshl05m0gh7egkm26r0lk6iiq3h.apps.googleusercontent.com',
+                secret: 'mDp4l0YVYbFWCUsbAtxMntSV'
+            }
         }),
         methods: {
             submit() {
@@ -76,17 +89,40 @@
 
                     })
                 }
+            },
+            onSignInSuccess(googleUser) {
+                // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+                //See https://developers.google.com/identity/sign-in/web/reference#users
+                this.$loggedUser.user = googleUser.getBasicProfile();
+                 console.log(this.$loggedUser.user)
+                this.$router.push('/home');
+
+            },
+            onSignInError(error) {
+                // `error` contains any error occurred.
+                console.log('OH NOES', error)
             }
+
         }
     }
 </script>
 
 <style scoped>
-    .login  {
-        width: 600px  !important;
-        position: fixed  !important;
-        top: 25%  !important;
-        left: 50%  !important;
-        margin-left: -300px  !important; 
+    .login {
+        width: 600px !important;
+        position: fixed !important;
+        top: 25% !important;
+        left: 50% !important;
+        margin-left: -300px !important;
+    }
+
+    .g-signin-button {
+        /* This is where you control how the button looks. Be creative! */
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 3px;
+        background-color: #3c82f7;
+        color: #fff;
+        box-shadow: 0 3px 0 #0f69ff;
     }
 </style>
