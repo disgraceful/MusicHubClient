@@ -134,6 +134,7 @@
                         this.progress = Math.trunc(this.currentAudio.currentTime / this.currentDuration * 100);
                     });
                 }
+                this.$cookie.set('song',this.currentSong);
                 if (!this.playing) {
                     this.currentAudio.play();
                     this.playing = true;
