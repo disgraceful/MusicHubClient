@@ -8,6 +8,10 @@ import {
 } from './routes/routes.js'
 import VueResource from 'vue-resource'
 import GSignInButton from 'vue-google-signin-button'
+import VueCookie from 'vue-cookie'
+// var VueCookie = require('vue-cookie');
+// Tell Vue to use the plugin
+
 
 const loggedUser = {
     user: null
@@ -25,6 +29,8 @@ Vue.use(GSignInButton)
 Vue.use(Vuetify)
 Vue.use(VueRouter)
 Vue.use(VueResource)
+Vue.use(VueCookie);
+
 Vue.use(loggedUser)
 
 

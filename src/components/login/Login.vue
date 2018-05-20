@@ -93,10 +93,21 @@
             onSignInSuccess(googleUser) {
                 // `googleUser` is the GoogleUser object that represents the just-signed-in user.
                 //See https://developers.google.com/identity/sign-in/web/reference#users
-                this.$loggedUser.user = googleUser.getBasicProfile();
-                 console.log(this.$loggedUser.user)
-                this.$router.push('/home');
+                var user = googleUser.getBasicProfile();
+                var token_id = googleUser.getAuthResponse().id_token;
+                console.log(user)
 
+                this.$http.post('http://localhost:8888/account/loginGoogle', token_id)
+                    .then(response => {
+                        console.log(response);
+                        this.$loggedUser.user = response.body;
+                        this.$cookie.set('user', this.$loggedUser.user.id)
+                        this.$router.push('/home');
+                        this.$router.go(this.$router.currentRoute)
+
+                    }, error => {
+                        console.log(error);
+                    });
             },
             onSignInError(error) {
                 // `error` contains any error occurred.

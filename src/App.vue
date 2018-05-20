@@ -2,7 +2,7 @@
   <v-app>
     <mh-header></mh-header>
     <router-view></router-view>
-    <mh-player v-if="$loggedUser.user"></mh-player>
+    <mh-player v-if="userCookie"></mh-player>
   </v-app>
 </template>
 
@@ -13,6 +13,12 @@
     components: {
       'mh-player': Player,
       'mh-header': Header,
+    },
+    computed:{
+      userCookie(){
+        console.log(this.$cookie.get('user'))
+        return this.$cookie.get('user')
+      }
     }
   }
 </script>

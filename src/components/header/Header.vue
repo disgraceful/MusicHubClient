@@ -25,14 +25,14 @@
         </div>
         <v-spacer></v-spacer>
 
-        <v-btn v-if="$loggedUser.user" :to="{name:'Consumer', params:{id:1}}" flat depressed>
+        <v-btn v-if="userCookie" :to="{name:'Consumer', params:{id:1}}" flat depressed>
             <v-icon left>favorite_border</v-icon>
             Favorites
         </v-btn>
         <v-btn v-else :to="{name:'Login'}" flat depressed>Login</v-btn>
-        <v-btn v-if="!$loggedUser.user" :to="{name:'RegisterConsumer'}" flat depressed>Register</v-btn>
+        <v-btn v-if="!userCookie" :to="{name:'RegisterConsumer'}" flat depressed>Register</v-btn>
         <v-menu :nudge-width="100" offset-y>
-            <v-btn v-if="$loggedUser.user" flat depressed slot="activator">
+            <v-btn v-if="userCookie" flat depressed slot="activator">
                 <v-avatar size="30px">
                     <img src="http://via.placeholder.com/30x30">
                     <v-icon dark>arrow_drop_down</v-icon>
@@ -71,9 +71,14 @@
                         name: "Logout"
                     }
                 ]
+            };
+        },
+        computed:{
+            userCookie(){
+                return this.$cookie.get('user');
             }
         }
-    };
+    }
 </script>
 
 <style scoped>
