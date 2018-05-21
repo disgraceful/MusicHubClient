@@ -14,9 +14,8 @@
       'mh-player': Player,
       'mh-header': Header,
     },
-    computed:{
-      userCookie(){
-        console.log(this.$cookie.get('user'))
+    computed: {
+      userCookie() {
         return this.$cookie.get('user')
       }
     }
