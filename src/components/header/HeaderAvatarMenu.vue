@@ -18,9 +18,12 @@
                 </v-list-tile>
 
                 <v-divider></v-divider>
-                <v-list-tile v-for="action in userActions" :key="action.name">
+                <!-- <v-list-tile> -->
+                <router-link v-for="action in userActions" :key="action.name" tag="v-list-tile" :to="{name:action.route,params:{id:user.id}}">
                     <v-list-tile-title v-text="action.name"></v-list-tile-title>
-                </v-list-tile>
+                </router-link>
+
+                <!-- </v-list-tile> -->
             </v-list>
         </v-menu>
     </div>
@@ -30,15 +33,18 @@
     export default {
         data() {
             return {
-                user : JSON.parse(window.localStorage.getItem('user')),
+                userImgPath: "",
                 userActions: [{
-                        name: "My Music"
+                        name: "My Music",
+                        route: "ConsumerTracks"
                     },
                     {
-                        name: "Settings"
+                        name: "Settings",
+                        route: "ConsumerSettings"
                     },
                     {
-                        name: "Logout"
+                        name: "Logout",
+                        route: ""
                     }
                 ]
             };
@@ -47,16 +53,15 @@
             userCookie() {
                 return this.$cookie.get('user-token');
             },
-            userName() {
-                // console.log(window.localStorage.getItem('user'));
-                // let cancer = JSON.parse(window.localStorage.getItem('user'));
-                // if(!cancer){
-                //     return "lol xd";
-                // }
-                // console.log(cancer.username);
-                // return cancer.username;
-                //return 
+            user() {
+                var u = JSON.parse(window.localStorage.getItem('user'))
+                if (u) {
+                    return u;
+                } else {
+                    return "";
+                }
             }
         },
+    
     }
 </script>
