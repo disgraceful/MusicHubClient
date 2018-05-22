@@ -16,7 +16,7 @@
     },
     computed: {
       userCookie() {
-        return this.$cookie.get('user')
+        return this.$cookie.get('user-token');
       }
     }
   }

@@ -29,9 +29,11 @@
                                 <v-btn round color="primary">fb</v-btn>
                                 <v-btn round color="secondary">tw</v-btn>
                                 <!-- <v-btn round color="error">g+</v-btn> -->
+
                                 <g-signin-button :params="googleSignInParams" @success="onSignInSuccess" @error="onSignInError">
                                     Google
                                 </g-signin-button>
+
                             </v-layout>
                         </v-flex>
 
@@ -75,8 +77,8 @@
              * @type {Object}
              */
             googleSignInParams: {
-                client_id: '100485869370-r3cg6jshl05m0gh7egkm26r0lk6iiq3h.apps.googleusercontent.com',
-                secret: 'mDp4l0YVYbFWCUsbAtxMntSV'
+                client_id: '100485869370-cl89djdjsno00e1re6sfl6d4hua9d7p9.apps.googleusercontent.com',
+                secret: 'YtCg48bLBDEE3xEsCc2_qCss'
             }
         }),
         methods: {
@@ -95,16 +97,18 @@
                 //See https://developers.google.com/identity/sign-in/web/reference#users
                 var user = googleUser.getBasicProfile();
                 var token_id = googleUser.getAuthResponse().id_token;
-                console.log(user)
 
-                this.$http.post('http://localhost:8888/account/loginGoogle', token_id)
+                this.$http.post('http://localhost:8888/account/login/Google', token_id)
                     .then(response => {
-                        console.log(response);
-                        this.$loggedUser.user = response.body;
-                        this.$cookie.set('user', this.$loggedUser.user.id)
+                        //console.log(response);
+                        
+                        //this.$cookie.set('user', JSON.stringify(response.body));
+                        window.localStorage.setItem('user', JSON.stringify(response.body))
+                        this.$cookie.set('user-token',token_id);
                         this.$router.push('/home');
+                        //this.$router.go('/home');
                         this.$router.go(this.$router.currentRoute)
-
+                        alert(this.$loggedUser.user.username);
                     }, error => {
                         console.log(error);
                     });
@@ -129,6 +133,14 @@
 
     .g-signin-button {
         /* This is where you control how the button looks. Be creative! */
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        text-align: center;
+        letter-spacing: normal;
+        text-indent: 0px;
+        text-shadow: none;
+        word-spacing: normal;
         display: inline-block;
         padding: 4px 8px;
         border-radius: 3px;
