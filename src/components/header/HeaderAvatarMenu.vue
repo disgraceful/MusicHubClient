@@ -8,7 +8,7 @@
         <v-menu :nudge-width="100" offset-y>
             <v-btn v-if="userCookie" flat depressed slot="activator">
                 <v-avatar size="35px">
-                    <img src="http://via.placeholder.com/35x35">
+                    <img :src="user.userImgPath">
                     <v-icon dark>arrow_drop_down</v-icon>
                 </v-avatar>
             </v-btn>
