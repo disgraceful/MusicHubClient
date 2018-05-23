@@ -54,9 +54,9 @@
                 return this.$cookie.get('user-token');
             },
             user() {
-                var u = JSON.parse(window.localStorage.getItem('user'))
-                if (u) {
-                    return u;
+                var user = JSON.parse(window.localStorage.getItem('user'))
+                if (user) {
+                    return user;
                 } else {
                     return "";
                 }

@@ -95,41 +95,28 @@
             onSignInSuccess(googleUser) {
                 // `googleUser` is the GoogleUser object that represents the just-signed-in user.
                 //See https://developers.google.com/identity/sign-in/web/reference#users
-                var user = googleUser.getBasicProfile();
                 var token_id = googleUser.getAuthResponse().id_token;
                 this.$cookie.set('user-token', token_id);
                 var user;
                 this.$http.post('http://localhost:8888/login/Google', token_id)
                     .then(response => {
                         user = response.body;
-
-                    }, error => {
-                        console.log(error);
-                    });
-                var token = 'Bearer ' + token_id;
-
-                this.$http.get('http://localhost:8888/account/consumer', {
-                        headers: {
-                            'Authorization': token,
-                            // 'X-CSRF-TOKEN': token
-                        }
-                    })
-                    .then(response => {
-                        user.userImgPath = response.body.imgPath;
-
                         window.localStorage.setItem('user', JSON.stringify(user))
-                        alert(user.userImgPath);
+                        var token = 'Bearer ' + token_id;
+                        this.$http.get('http://localhost:8888/account/consumer', {
+                                headers: {'Authorization': token}
+                            })
+                            .then(response => {
+                                user.userImgPath = response.body.imgPath;
+                                window.localStorage.setItem('user', JSON.stringify(user))
+                                this.$router.push({name: 'Home'});
+                                this.$router.go(this.$router.currentRoute)
+                            }, error => {
+                                console.log(error);
+                            });
                     }, error => {
                         console.log(error);
                     });
-
-
-
-                this.$router.push({
-                    name: 'Home'
-                });
-                //this.$router.go(this.$router.currentRoute)
-
             },
             onSignInError(error) {
                 // `error` contains any error occurred.
