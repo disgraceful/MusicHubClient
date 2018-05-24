@@ -8,12 +8,22 @@
                     </div>
                 </v-card-title>
             </div>
-            <v-container fluid>
+            <v-container style="padding-top:0px">
+                <v-layout row>
+                    <v-container>
+                        <img src="http://via.placeholder.com/150x150" height="150px" />
+                    </v-container>
+                </v-layout>
+                <v-layout>
+                    <v-btn>Upload image</v-btn>
+                </v-layout>
+            </v-container>
+            <v-container fluid style="padding-top:0px">
                 <v-form v-model="valid">
-                    <v-text-field label="Login" v-model="login" :rules="loginRules" required></v-text-field>
+                    <v-text-field label="Username" v-model="username" :rules="usernameRules" required></v-text-field>
                     <v-text-field label="E-mail" v-model="email" :rules="emailRules" required></v-text-field>
                     <v-text-field label="Password" v-model="password" :rules="passwordRules" required></v-text-field>
-                    <v-text-field label="Confirm password" v-model="confirm" :rules="confrimRules" required></v-text-field>
+                    <v-text-field label="Confirm password" v-model="confirm" :rules="confirmRules" required></v-text-field>
                     <v-btn @click="submit" :disabled="!valid">submit</v-btn>
                 </v-form>
             </v-container>
@@ -77,37 +87,83 @@
 
 <script>
     export default {
-        data: () => ({
-            valid: false,
-            login: '',
-            loginRules: [
-                v => !!v || 'Login is required',
-                v => (v.length <= 10 || v.length >= 4) || 'Login must be <= 10 or >=4 characters'
-            ],
-            email: '',
-            emailRules: [
-                v => !!v || 'E-mail is required',
-                v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
-            ],
-            password: '',
-            passwordRules: [
-                v => !!v || 'Password is required',
-                v=> (v.length<=10||v.length>=4) || 'Password must be <= 10 or >=4 characters'
-            ],
-            confirm: '',
-            confirmRules: [
-                v => !!v || 'Confrim password is required',
-                v => password===confirm || 'Passwords do not match'
-            ]
-        }),
+        data() {
+            return {
+                valid: false,
+                username: '',
+                email: '',
+                password: '',
+                confirm: '',
+                imgPath: '',
+                usernameRules: [
+                    v => !!v || 'This field is required',
+                    v => (v.length <= 15 || v.length >= 4) || 'Login must be <= 14 or >=4 characters'
+                ],
+
+                emailRules: [
+                    v => !!v || 'This field  is required',
+                    v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+                ],
+
+                passwordRules: [
+                    v => !!v || 'This field  is required',
+                    v => (v.length >= 6) || 'Password must be <= 10 or >=6 characters'
+                ],
+
+                confirmRules: [
+                    v => !!v || 'This field is required',
+                    v => this.checkPasswords() || 'Passwords do not match'
+                ],
+            };
+        },
+
+
         methods: {
+            checkPasswords() {
+                return this.password === this.confirm;
+            },
             submit() {
                 if (this.$refs.form.validate()) {
-                    // Native form submission is not yet supported
-                    axios.post('/api/submit', {
-                        name: this.name,
+                    var newConsumer = {
                         email: this.email,
-                    })
+                        username: this.username,
+                        password: this.password,
+                        confirmPassword: this.confirm,
+                        imgPath: this.imgPath
+                    }
+                    this.$http.post('http://localhost:8888/register', newConsumer)
+                        .then(response => {
+                            console.log(response.body);
+                            var createdConsumer = response.body;
+                            this.$http.post('http://localhost:8888/login', {
+                                    username: createdConsumer.email,
+                                    password: createdConsumer.password
+                                })
+                                .then(response => {
+                                    var token_id = response.body.accessToken;
+                                    console.log(token_id);
+                                    this.$cookie.set('user-token', token_id);
+                                    var token = 'Bearer ' + token_id;
+                                    this.$http.get('http://localhost:8888/account', {
+                                            headers: {
+                                                'Authorization': token
+                                            }
+                                        })
+                                        .then(response => {
+                                            var user = response.body;
+                                            user.imgPath = createdConsumer.imgPath;
+                                            window.localStorage.setItem('user', JSON.stringify(user))
+                                            this.$router.push({
+                                                name: 'Home'
+                                            });
+                                            this.$router.go(this.$router.currentRoute)
+                                        }, error => {});
+                                }, error => {
+                                    console.log(error);
+                                });
+                        }, error => {
+                            console.log(error);
+                        });
                 }
             },
             clear() {
@@ -118,11 +174,14 @@
 </script>
 
 <style scoped>
- .register  {
-        width: 600px  !important;
-        position: fixed  !important;
-        top: 25%  !important;
-        left: 50%  !important;
-        margin-left: -300px  !important; 
+    .register {
+        position: relative;
+        width: 600px !important;
+        position: fixed !important;
+        top: 10% !important;
+        left: 50% !important;
+        margin-left: -300px !important;
+        /* margin-top:-400px !important; */
+        overflow: visible;
     }
 </style>
