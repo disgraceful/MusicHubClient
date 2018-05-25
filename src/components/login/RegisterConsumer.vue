@@ -19,7 +19,7 @@
                 </v-layout>
             </v-container>
             <v-container fluid style="padding-top:0px">
-                <v-form v-model="valid">
+                <v-form ref="form" v-model="valid" lazy-validation>
                     <v-text-field label="Username" v-model="username" :rules="usernameRules" required></v-text-field>
                     <v-text-field label="E-mail" v-model="email" :rules="emailRules" required></v-text-field>
                     <v-text-field label="Password" v-model="password" :rules="passwordRules" required></v-text-field>
@@ -45,7 +45,6 @@
                             </v-layout>
                         </v-flex>
                     </v-layout>
-
                     <v-layout row>
                         <v-flex shrink>
                             <v-container fill-height pa-0>
@@ -79,7 +78,6 @@
                         </v-flex>
                     </v-layout>
                 </v-container>
-
             </v-layout>
         </v-card>
     </div>
@@ -99,25 +97,20 @@
                     v => !!v || 'This field is required',
                     v => (v.length <= 15 || v.length >= 4) || 'Login must be <= 14 or >=4 characters'
                 ],
-
                 emailRules: [
                     v => !!v || 'This field  is required',
                     v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
                 ],
-
                 passwordRules: [
                     v => !!v || 'This field  is required',
                     v => (v.length >= 6) || 'Password must be <= 10 or >=6 characters'
                 ],
-
                 confirmRules: [
                     v => !!v || 'This field is required',
                     v => this.checkPasswords() || 'Passwords do not match'
                 ],
             };
         },
-
-
         methods: {
             checkPasswords() {
                 return this.password === this.confirm;
@@ -136,8 +129,8 @@
                             console.log(response.body);
                             var createdConsumer = response.body;
                             this.$http.post('http://localhost:8888/login', {
-                                    username: createdConsumer.email,
-                                    password: createdConsumer.password
+                                    username: this.username,
+                                    password: this.password
                                 })
                                 .then(response => {
                                     var token_id = response.body.accessToken;
@@ -157,7 +150,9 @@
                                                 name: 'Home'
                                             });
                                             this.$router.go(this.$router.currentRoute)
-                                        }, error => {});
+                                        }, error => {
+                                            console.log(error);
+                                        });
                                 }, error => {
                                     console.log(error);
                                 });
