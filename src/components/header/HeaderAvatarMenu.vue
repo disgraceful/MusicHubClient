@@ -18,12 +18,14 @@
                 </v-list-tile>
 
                 <v-divider></v-divider>
-                <!-- <v-list-tile> -->
-                <router-link v-for="action in userActions" :key="action.name" tag="v-list-tile" :to="{name:action.route,params:{id:user.id}}">
+
+                <router-link v-for="action in userActions" :key="action.name" tag="v-list-tile" :to="{name:action.route,params:{id:user.username}}">
                     <v-list-tile-title v-text="action.name"></v-list-tile-title>
                 </router-link>
+                <v-list-tile @click="logout">
+                    <v-list-tile v-text="logoutTile"></v-list-tile>
+                </v-list-tile>
 
-                <!-- </v-list-tile> -->
             </v-list>
         </v-menu>
     </div>
@@ -34,6 +36,7 @@
         data() {
             return {
                 userImgPath: "",
+                logoutTile: "Logout",
                 userActions: [{
                         name: "My Music",
                         route: "ConsumerTracks"
@@ -41,11 +44,8 @@
                     {
                         name: "Settings",
                         route: "ConsumerSettings"
-                    },
-                    {
-                        name: "Logout",
-                        route: ""
                     }
+
                 ]
             };
         },
@@ -62,6 +62,26 @@
                 }
             }
         },
-    
+        methods: {
+            logout() {
+                var token = this.$cookie.get('user-token');
+                this.$http.post('http://localhost:8888/account/logout', {
+                        headers: {
+                            'Authorization': token
+                        }
+                    })
+                    .then(response => {
+                        this.$cookie.delete('user-token');
+                        window.localStorage.removeItem('user');
+                        this.$router.push({
+                            name: 'Login'
+                        });
+                        this.$router.go(this.$router.currentRoute)
+                    }, error => {
+                        console.log(error);
+                    });
+            }
+        }
+
     }
 </script>
