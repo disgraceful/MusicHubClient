@@ -9,8 +9,7 @@ import {
 import VueResource from 'vue-resource'
 import GSignInButton from 'vue-google-signin-button'
 import VueCookie from 'vue-cookie'
-// var VueCookie = require('vue-cookie');
-// Tell Vue to use the plugin
+
 
 
 const loggedUser = {

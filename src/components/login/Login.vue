@@ -9,11 +9,10 @@
                 </v-card-title>
             </div>
             <v-container fluid>
-                <v-form v-model="valid">
-                    <v-text-field label="Login" v-model="login" :rules="loginRules" required></v-text-field>
+                <v-form ref="form" v-model="valid" lazy-validation>
+                    <v-text-field label="Username" v-model="username" :rules="usernameRules" required></v-text-field>
                     <v-text-field label="Password" v-model="password" :rules="passwordRules" required></v-text-field>
                     <v-btn @click="submit" :disabled="!valid">submit</v-btn>
-
                 </v-form>
             </v-container>
             <v-layout row>
@@ -28,8 +27,6 @@
                             <v-layout row>
                                 <v-btn round color="primary">fb</v-btn>
                                 <v-btn round color="secondary">tw</v-btn>
-                                <!-- <v-btn round color="error">g+</v-btn> -->
-
                                 <g-signin-button :params="googleSignInParams" @success="onSignInSuccess" @error="onSignInError">
                                     Google
                                 </g-signin-button>
@@ -61,10 +58,9 @@
     export default {
         data: () => ({
             valid: false,
-            login: '',
-            loginRules: [
+            username: '',
+            usernameRules: [
                 v => !!v || 'Login is required',
-                v => (v.length <= 10 || v.length >= 4) || 'Login must be <= 10 or >=4 characters'
             ],
             password: '',
             passwordRules: [
@@ -84,12 +80,43 @@
         methods: {
             submit() {
                 if (this.$refs.form.validate()) {
-                    // Native form submission is not yet supported
-                    axios.post('/api/submit', {
-                        name: this.name,
-                        email: this.email,
-
-                    })
+                    this.$http.post('http://localhost:8888/login', {
+                            username: this.username,
+                            password: this.password
+                        })
+                        .then(response => {
+                            var token_id = response.body.accessToken;
+                            console.log(token_id);
+                            this.$cookie.set('user-token', token_id);
+                            var token = 'Bearer ' + token_id;
+                            this.$http.get('http://localhost:8888/account', {
+                                    headers: {
+                                        'Authorization': token
+                                    }
+                                })
+                                .then(response => {
+                                    var user = response.body;
+                                    this.$http.get('http://localhost:8888/account/consumer', {
+                                            headers: {
+                                                'Authorization': token
+                                            }
+                                        })
+                                        .then(response => {
+                                            user.imgPath = response.body.imgPath;
+                                            window.localStorage.setItem('user', JSON.stringify(user))
+                                            this.$router.push({
+                                                name: 'Home'
+                                            });
+                                            this.$router.go(this.$router.currentRoute)
+                                        }, error => {
+                                            console.log(error);
+                                        });
+                                }, error => {
+                                    console.log(error);
+                                });
+                        }, error => {
+                            console.log(error);
+                        });
                 }
             },
             onSignInSuccess(googleUser) {
@@ -104,12 +131,16 @@
                         window.localStorage.setItem('user', JSON.stringify(user))
                         var token = 'Bearer ' + token_id;
                         this.$http.get('http://localhost:8888/account/consumer', {
-                                headers: {'Authorization': token}
+                                headers: {
+                                    'Authorization': token
+                                }
                             })
                             .then(response => {
                                 user.userImgPath = response.body.imgPath;
                                 window.localStorage.setItem('user', JSON.stringify(user))
-                                this.$router.push({name: 'Home'});
+                                this.$router.push({
+                                    name: 'Home'
+                                });
                                 this.$router.go(this.$router.currentRoute)
                             }, error => {
                                 console.log(error);
@@ -122,8 +153,8 @@
                 // `error` contains any error occurred.
                 console.log('OH NOES', error)
             }
-
         }
+
     }
 </script>
 
