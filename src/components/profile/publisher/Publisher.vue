@@ -12,14 +12,7 @@
                             <div class="grey--text">genre</div>
                         </div>
                     </v-flex>
-
                     <mh-pub-upload></mh-pub-upload>
-                    <!-- <v-layout row wrap style="padding-top:20px">
-                        <v-btn round color="white">
-                            Upload song
-                        </v-btn>
-                    </v-layout> -->
-
                 </v-container>
             </v-layout>
         </v-container>
@@ -36,7 +29,7 @@
 </template>
 
 <script>
-import PublisherUpload from './PublisherUpload'
+    import PublisherUpload from './PublisherUpload'
     export default {
         data() {
             return {
@@ -49,9 +42,32 @@ import PublisherUpload from './PublisherUpload'
                 }]
             }
         },
-        components:{
-            'mh-pub-upload':PublisherUpload
+        computed: {
+            artist() {
+                return getArtist;
+            }
+        },
+        components: {
+            'mh-pub-upload': PublisherUpload
+        },
+        methods: {
+            getArtist() {
+                var apiPath = 'http://localhost:8888/author/' + this.$route.params.id;
+                var getArtist;
+                this.$http.get('apiPath', {
+                        headers: {
+                            'Authorization': this.$cookie.get('user-token')
+                        }
+                    })
+                    .then(response => {
+                        getArtist = response.body;
+                        return getArtist;
+                    }, error => {
+                        console.log(error);
+                    });
+            }
         }
+
     }
 </script>
 

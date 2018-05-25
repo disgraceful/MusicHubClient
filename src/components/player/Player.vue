@@ -91,21 +91,21 @@
                         name: "Kill Yourself",
                         author: "Suicide Boys",
                         duration: "3:01",
-                        url: '../../../music/JohnCenaMyTimeIsNow.mp3',
+                        //url: '../../../resource/JohnCenaMyTimeIsNow.mp3',
                         image: "http://via.placeholder.com/350x150"
                     },
                     {
                         name: "Dead Inside",
                         author: "Arch Enemy",
                         duration: "4:02",
-                        url: '../../../music/TaylorSwiftEyesOpen.mp3',
+                        //url: '../../../resource/TaylorSwiftEyesOpen.mp3',
                         image: "http://via.placeholder.com/350x150"
                     },
                     {
                         name: "Retard Whore",
                         author: "Demented We Go",
                         duration: "2:03",
-                        url: '../../../music/EminemBeautifulPain.mp3',
+                       // url: '../../../resource/EminemBeautifulPain.mp3',
                         image: "http://via.placeholder.com/350x150"
                     }
                 ],

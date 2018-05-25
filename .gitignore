@@ -1,6 +1,8 @@
 .DS_Store
 node_modules/
 dist/
+resources/
+music/
 npm-debug.log
 yarn-error.log
 

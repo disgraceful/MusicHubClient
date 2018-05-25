@@ -3,31 +3,33 @@
         <v-container fluid>
             <v-layout>
                 <v-avatar size="200px">
-                    <img src="http://via.placeholder.com/200x200">
+                    <img :src="getImageUrl">
                 </v-avatar>
                 <v-container>
                     <v-flex style="padding:20px">
                         <div>
-                            <div class="headline">Artist Name</div>
-                            <div class="grey--text">genre</div>
+                            <div class="headline">{{artist.name}}</div>
+                            <div class="grey--text">
+                                <router-link :to="{name:'Genre',params:{id:artist.genreId}}">
+                                    {{artist.genreName}}
+                                </router-link>
+                            </div>
                         </div>
                     </v-flex>
                     <v-layout row wrap style="padding-top:20px">
-
                         <v-btn round color="primary">
                             <v-icon left>play_arrow</v-icon>Play All</v-btn>
-
                         <v-btn round color="white">
-                            <v-icon left>favorite_border</v-icon>66666
+                            <v-icon left>favorite_border</v-icon>{{artist.rating}}
                         </v-btn>
                     </v-layout>
-
                 </v-container>
             </v-layout>
         </v-container>
         <v-card-actions>
             <v-tabs right slider-color="red">
-                <router-link v-for="item in tabs" :key="item.name" :to="{name:item.route,params:{id:$route.params.id}}" tag="v-tab">{{item.name}}</router-link>
+                <router-link v-for="item in tabs" :key="item.name" :to="{name:item.route,params:{id:$route.params.id}}" tag="v-tab">
+                    {{item.name}}</router-link>
             </v-tabs>
         </v-card-actions>
         <v-tabs-items>
@@ -41,6 +43,7 @@
     export default {
         data() {
             return {
+                artist: "",
                 tabs: [{
                     name: "All",
                     route: "ArtistGeneral"
@@ -56,6 +59,31 @@
                     route: "ArtistSimilar"
                 }]
             }
+        },
+        computed: {
+            getImageUrl() {
+                return require('../../../resources/ArchEnemy/Band.jpg')
+                //return "" + artist.imgPath;
+            }
+        },
+        methods: {
+
+        },
+        mounted() {
+            var apiPath = 'http://localhost:8888/author/' + this.$route.params.id;
+            var getArtist;
+            this.$http.get(apiPath, {
+                    headers: {
+                        'Authorization': this.$cookie.get('user-token')
+                    }
+                })
+                .then(response => {
+                    getArtist = response.body;
+                    console.log(getArtist);
+                    this.artist = getArtist;
+                }, error => {
+                    console.log(error);
+                });
         }
     }
 </script>
