@@ -3,7 +3,7 @@
         <v-container fluid>
             <v-layout>
                 <v-avatar size="200px">
-                    <img :src="getImageUrl">
+                    <img :src="artist.imgPath">
                 </v-avatar>
                 <v-container>
                     <v-flex style="padding:20px">
@@ -44,6 +44,7 @@
         data() {
             return {
                 artist: "",
+                image:"",
                 tabs: [{
                     name: "All",
                     route: "ArtistGeneral"
@@ -60,14 +61,7 @@
                 }]
             }
         },
-        computed: {
-            getImageUrl() {
-                return require('../../../resources/ArchEnemy/Band.jpg')
-                //return "" + artist.imgPath;
-            }
-        },
         methods: {
-
         },
         mounted() {
             var apiPath = 'http://localhost:8888/author/' + this.$route.params.id;
