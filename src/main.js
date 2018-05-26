@@ -9,20 +9,7 @@ import {
 import VueResource from 'vue-resource'
 import GSignInButton from 'vue-google-signin-button'
 import VueCookie from 'vue-cookie'
-
-
-
-const loggedUser = {
-    user: null
-}
-
-loggedUser.install = function() {
-    Object.defineProperty(Vue.prototype, '$loggedUser', {
-        get() {
-            return loggedUser
-        }
-    })
-}
+import AlbumPreview from './components/shared/AlbumPreview.vue'
 
 Vue.use(GSignInButton)
 Vue.use(Vuetify)
@@ -30,7 +17,6 @@ Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(VueCookie);
 
-Vue.use(loggedUser)
 
 
 const router = new VueRouter({

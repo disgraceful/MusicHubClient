@@ -7,27 +7,40 @@
         </v-card-title>
         <v-container fluid grid-list-xl>
             <v-layout row wrap>
-                <v-flex xs2 v-for="index in 30" :key="index">
-                    <v-card>
-                        <v-card-media src="http://via.placeholder.com/350x150" height="150px">
-                        </v-card-media>
-                        <v-card-title>
-                            <v-flex pa-0>
-                                <div class="text-xs-left">
-                                    <div class="subheading" style="font-weight:bold">Album Name {{index}}</div>
-                                    <div class="text--black">Author Name{{index}}</div>
-                                    <div class="grey--text">year and genre</div>
-                                </div>
-                            </v-flex>
-                        </v-card-title>
-                    </v-card>
+                <v-flex xs2 v-for="album in albums" :key="album.id">
+                    <mh-album-preview :album="album"></mh-album-preview>
                 </v-flex>
             </v-layout>
         </v-container>
     </v-card>
 </template>
 <script>
+    import AlbumPreview from '../shared/AlbumPreview'
     export default {
+        data() {
+            return {
+                albums: '',
+                albumsCount: '',
 
+            };
+        },
+        components: {
+            'mh-album-preview': AlbumPreview
+        },
+        mounted() {
+            var apiPath = 'http://localhost:8888/author/' + this.$route.params.id + '/albums';
+            this.$http.get(apiPath, {
+                    headers: {
+                        'Authorization': this.$cookie.get('user-token')
+                    }
+                })
+                .then(response => {
+                    this.albums = response.body;
+                    this.albumsCount = this.albums.length;
+                    console.log(this.albums);
+                }, error => {
+                    console.log(error);
+                });
+        }
     }
 </script>
