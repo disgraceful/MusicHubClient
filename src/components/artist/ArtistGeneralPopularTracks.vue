@@ -52,4 +52,7 @@
 </script>
 
 <style scoped>
+.container.grid-list-lg .layout .flex{
+    padding:0px;
+}
 </style>

@@ -92,4 +92,8 @@
     .container.grid-list-lg .layout .flex {
         padding: 0px;
     }
+     .btn--floating.btn--small {
+        width: 30px;
+        height: 30px;
+    }
 </style>
