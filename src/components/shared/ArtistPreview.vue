@@ -51,7 +51,6 @@
     #artist-card {
         padding: 5px;
         border: 2px solid transparent;
-
     }
 
     #artist-card:hover {

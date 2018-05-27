@@ -1,32 +1,12 @@
 <template>
     <v-card flat>
-        <v-card>
-            <v-layout row>
-                <v-card-title primary-title>
-                    <div class="title" style="width:200px">
-                    Popular tracks
-                    </div>
-                </v-card-title>
-                <v-container>
-                    <v-flex class="text-xs-right">
-                        <router-link :to="{name:'ArtistTracks',params:{id:$route.params.id}}" tag="a">All tracks</router-link>
-                    </v-flex>
-                </v-container>
-            </v-layout>
-            <v-container fluid grid-list-lg>
-                <v-layout row wrap>
-                    <v-flex xs12 v-for="index in 5" :key="index">
-                        <mh-song-unlisted></mh-song-unlisted>
-                    </v-flex>
-                </v-layout>
-            </v-container>
-        </v-card>
+        <mh-artist-popular :songs="bestSongs"></mh-artist-popular>
 
         <v-card>
             <v-layout row>
                 <v-card-title primary-title>
                     <div class="title" style="width:200px">
-                    Popular albums
+                        Popular albums
                     </div>
                 </v-card-title>
                 <v-container>
@@ -81,8 +61,8 @@
         <v-card>
             <v-layout row>
                 <v-card-title primary-title>
-                   <div class="title" style="width:200px">
-                    Similar artists
+                    <div class="title" style="width:200px">
+                        Similar artists
                     </div>
                 </v-card-title>
                 <v-container>
@@ -116,11 +96,32 @@
         </v-card>
     </v-card>
 </template>
+
 <script>
-    import Song from '../shared/SongUnlisted'
+    import ArtistPopularTracks from './ArtistGeneralPopularTracks.vue'
     export default {
+        data() {
+            return {
+                bestSongs: '',
+
+            }
+        },
         components: {
-            'mh-song-unlisted': Song
+            'mh-artist-popular': ArtistPopularTracks
+        },
+        mounted() {
+            var apiPath = 'http://localhost:8888/author/' + this.$route.params.id + '/popularsongs';
+            this.$http.get(apiPath, {
+                    headers: {
+                        'Authorization': this.$cookie.get('user-token')
+                    }
+                })
+                .then(response => {
+                    this.bestSongs = response.body;
+                    console.log(this.bestSongs);
+                }, error => {
+                    console.log(error);
+                });
         }
     }
 </script>

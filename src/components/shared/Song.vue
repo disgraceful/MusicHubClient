@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card flat>
         <v-container pa-0 fluid px-0>
             <v-layout row>
                 <v-flex shrink>
@@ -33,11 +33,10 @@
 
 <script>
     export default {
-        props: ['number']
+        props: ['number','song']
     }
 </script>
 
-<style>
-
+<style scoped>
 
 </style>
