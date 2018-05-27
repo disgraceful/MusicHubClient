@@ -14,11 +14,9 @@
                     <v-card-title>
                         <div class="text-xs-left">
                             <div class="text--black">{{song.name}}
-
                             </div>
                             <router-link :to="{name:'Album',params:{id:song.albumId}}" tag="div" class="song-text-grey">
                                 {{song.albumName}}
-
                             </router-link>
                         </div>
                     </v-card-title>
