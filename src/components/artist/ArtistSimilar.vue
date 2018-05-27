@@ -7,23 +7,8 @@
         </v-card-title>
         <v-container fluid grid-list-xl>
             <v-layout row wrap>
-                <v-flex xs2 v-for="index in 10" :key="index">
-                    <v-card :to="{name:'Artist'}">
-                        <div class="text-xs-center">
-                            <v-avatar size="200px">
-                                <img src="http://via.placeholder.com/200x200">
-                            </v-avatar>
-                        </div>
-
-                        <v-card-title>
-                            <v-flex pa-0>
-                                <div class="text-xs-left">
-                                    <div class="subheading">Artist Name {{index}}</div>
-                                    <div class="grey--text">genre</div>
-                                </div>
-                            </v-flex>
-                        </v-card-title>
-                    </v-card>
+                <v-flex xs2 v-for="artist in artists" :key="artist.name">
+                    <mh-artist-preview :artist="artist"></mh-artist-preview>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -31,7 +16,30 @@
     </v-card>
 </template>
 <script>
+    import ArtistPreview from '../shared/ArtistPreview'
     export default {
+        data() {
+            return {
+                artists: ''
+            };
+        },
+        components: {
+            'mh-artist-preview': ArtistPreview
+        },
+        mounted() {
+            var apiPath = 'http://localhost:8888/author/' + this.$route.params.id + '/similar';
+            this.$http.get(apiPath, {
+                    headers: {
+                        'Authorization': this.$cookie.get('user-token')
+                    }
+                })
+                .then(response => {
+                    this.artists = response.body;
+                    console.log(this.artists);
+                }, error => {
+                    console.log(error);
+                });
+        }
 
     }
 </script>
