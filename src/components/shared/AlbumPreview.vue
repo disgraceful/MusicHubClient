@@ -1,11 +1,11 @@
 <template>
     <v-card id="album-card" flat>
         <v-container>
-            <v-card-media :src="album.imgPath" height="150px">
-                <v-btn relative fab left small color="pink" class="fab-icon">
+            <v-card-media :src="album.imgPath" height="250px">
+                <v-btn relative fab left medium color="pink" class="fab-icon">
                     <v-icon medium>favorite_border</v-icon>
                 </v-btn>
-                <v-btn relative fab left small color="yellow" class="fab-icon">
+                <v-btn relative fab left medium color="yellow" class="fab-icon">
                     <v-icon medium>play_arrow</v-icon>
                 </v-btn>
             </v-card-media>
@@ -57,7 +57,8 @@
     }
 
     .fab-icon {
-        top: 50px;
+        top: 90px;
+        left:60px;
         display: none;
     }
 

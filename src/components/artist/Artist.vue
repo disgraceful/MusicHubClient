@@ -2,18 +2,16 @@
     <v-card>
         <v-container fluid>
             <v-layout>
-                <v-avatar size="200px">
+                <v-avatar size="220px">
                     <img :src="artist.imgPath">
                 </v-avatar>
                 <v-container>
                     <v-flex style="padding:20px">
                         <div>
                             <div class="headline">{{artist.name}}</div>
-                            <div class="grey--text">
-                                <router-link :to="{name:'Genre',params:{id:artist.genreId}}">
-                                    {{artist.genreName}}
-                                </router-link>
-                            </div>
+                            <router-link tag="div" class="genre-text" :to="{name:'Genre',params:{id:artist.genreId}}">
+                                {{artist.genreName}}
+                            </router-link>
                         </div>
                     </v-flex>
                     <v-layout row wrap style="padding-top:20px">
@@ -44,7 +42,7 @@
         data() {
             return {
                 artist: "",
-                image:"",
+                image: "",
                 tabs: [{
                     name: "All",
                     route: "ArtistGeneral"
@@ -61,8 +59,7 @@
                 }]
             }
         },
-        methods: {
-        },
+        methods: {},
         mounted() {
             var apiPath = 'http://localhost:8888/author/' + this.$route.params.id;
             var getArtist;
@@ -85,5 +82,14 @@
 <style scoped>
     .padding-10 {
         padding: 20px;
+    }
+
+    .genre-text {
+        color: darkgray !important;
+        cursor: pointer;
+    }
+
+    .genre-text:hover {
+        color: red !important;
     }
 </style>

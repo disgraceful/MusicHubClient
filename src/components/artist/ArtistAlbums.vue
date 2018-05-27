@@ -20,8 +20,6 @@
         data() {
             return {
                 albums: '',
-                albumsCount: '',
-
             };
         },
         components: {
@@ -36,7 +34,6 @@
                 })
                 .then(response => {
                     this.albums = response.body;
-                    this.albumsCount = this.albums.length;
                     console.log(this.albums);
                 }, error => {
                     console.log(error);
