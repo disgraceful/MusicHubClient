@@ -42,7 +42,6 @@
         data() {
             return {
                 artist: "",
-                image: "",
                 tabs: [{
                     name: "All",
                     route: "ArtistGeneral"

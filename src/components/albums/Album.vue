@@ -1,46 +1,90 @@
 <template>
-    <v-card>
-        <v-container fluid>
-            <v-layout>
-                <img src="http://via.placeholder.com/200x200">
-                <v-container pa-0>
-                    <v-flex style="padding:20px;padding-bottom:50px;padding-top:0px">
-                        <div>
-                            <div class="headline">Album Name</div>
-                            <div class="text--black">Artist: Artist Name</div>
-                            <div class="grey--text">genre + year</div>
-                        </div>
-                    </v-flex>
-                    <v-layout row wrap style="padding-top:20px">
+    <div>
+        <v-card style="height:100%">
+            <v-container fluid>
+                <v-layout>
+                    <img :src="album.imgPath" height="220px">
+                    <v-container pa-0>
+                        <v-flex style="padding:30px;paddint-top:20px;padding-bottom:20px">
+                            <div>
+                                <div class="headline">{{album.name}}</div>
+                                <router-link tag="div" class="text-black" :to="{name:'Artist',params:{id:album.authorId}}">
+                                    {{album.authorName}}
+                                </router-link>
 
-                        <v-btn round color="primary">
-                            <v-icon left>play_arrow</v-icon>Play</v-btn>
+                                <div class="grey--text">
+                                    <router-link tag="div" class="text-black" :to="{name:'Artist',params:{id:album.authorId}}">
+                                        {{album.genreName}}</router-link>{{album.recordDate}}</div>
+                            </div>
+                        </v-flex>
+                        <v-layout row wrap style="padding-top:20px;padding-left:20px">
+                            <v-btn round color="primary">
+                                <v-icon left>play_arrow</v-icon>Play All</v-btn>
 
-                        <v-btn color="white" fab small>
-                            <v-icon>favorite_border</v-icon>
-                        </v-btn>
-                        <v-btn color="white" fab small>
-                            <v-icon>add</v-icon>
-                        </v-btn>
-                    </v-layout>
-
-                </v-container>
+                            <v-btn color="white" fab small>
+                                <v-icon>favorite_border</v-icon>
+                            </v-btn>
+                            <v-btn color="white" fab small>
+                                <v-icon>add</v-icon>
+                            </v-btn>
+                        </v-layout>
+                    </v-container>
+                </v-layout>
+            </v-container>
+            <v-layout row wrap>
+                <v-flex xs12 v-for="(song,index) in songs" :key="song.name">
+                    <mh-album-song :number="index+1" :song="song"></mh-album-song>
+                </v-flex>
             </v-layout>
-        </v-container>
-        <v-layout row wrap>
-            <v-flex xs12 v-for="item in 10" :key="item">
-                <mh-song-mini :number="item"></mh-song-mini>
-            </v-flex>
-        </v-layout>
+        </v-card>
+        <div class="footer">
 
-    </v-card>
+        </div>
+    </div>
 </template>
 
 <script>
-    import Song from '../shared/SongMini'
+    import Song from '../shared/AlbumSong'
     export default {
+        data() {
+            return {
+                album: '',
+                songs: ''
+            };
+        },
         components: {
-            'mh-song-mini': Song
+            'mh-album-song': Song
+        },
+        mounted() {
+            var apiPath = 'http://localhost:8888/album/' + this.$route.params.id;
+            this.$http.get(apiPath, {
+                    headers: {
+                        'Authorization': this.$cookie.get('user-token')
+                    }
+                })
+                .then(response => {
+                    this.album = response.body;
+                    var apiPath = 'http://localhost:8888/album/' + this.$route.params.id + '/songs';
+                    this.$http.get(apiPath, {
+                            headers: {
+                                'Authorization': this.$cookie.get('user-token')
+                            }
+                        })
+                        .then(response => {
+                            this.songs = response.body;
+                        }, error => {
+                            console.log(error);
+                        });
+                }, error => {
+                    console.log(error);
+                });
         }
     }
 </script>
+<style>
+    .footer {
+       height: 75px;
+        color: white;
+        z-index: -1;
+    }
+</style>

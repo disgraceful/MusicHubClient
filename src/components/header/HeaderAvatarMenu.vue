@@ -8,7 +8,8 @@
         <v-menu :nudge-width="100" offset-y>
             <v-btn v-if="userCookie" flat depressed slot="activator">
                 <v-avatar size="35px">
-                    <img :src="user.userImgPath">
+                    <!-- <img :src="user.userImgPath"> -->
+                     <img :src="require('../../../public/profile.jpeg')">
                     <v-icon dark>arrow_drop_down</v-icon>
                 </v-avatar>
             </v-btn>

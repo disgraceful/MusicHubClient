@@ -26,7 +26,7 @@
                     </v-flex>
                     <v-flex shrink>
                         <v-container pa-0 fill-height style="height:75px">
-                            <img src="http://via.placeholder.com/55x55" width="55px" height="55px" />
+                            <img src="http://localhost:8888/resources/ArchEnemy/RiseOfTheTyrant/Folder.jpg" width="55px" height="55px" />
                         </v-container>
                     </v-flex>
                     <v-card-title>
@@ -88,11 +88,11 @@
                 progressBarHovered: false,
                 playlistDialog: false,
                 songs: [{
-                        name: "Kill Yourself",
-                        author: "Suicide Boys",
-                        duration: "3:01",
+                        name: "I Will Live Again",
+                        author: "Arch Enemy",
+                        duration: "3:52",
                         //url: '../../../resource/JohnCenaMyTimeIsNow.mp3',
-                        image: "http://via.placeholder.com/350x150"
+                        image: "http://localhost:8888/resources/ArchEnemy/RiseOfTheTyrant/Folder.jpg"
                     },
                     {
                         name: "Dead Inside",

@@ -13,10 +13,10 @@
         <v-card-title>
             <v-flex pa-0>
                 <div class="text-xs-left">
-                    <router-link :to="{name:'ArtistGeneral',params:{id:album.authorId}}" tag="div" class="subheading album-text" style="font-weight:bold">
+                    <router-link :to="{name:'Album',params:{id:album.id}}" tag="div" class="subheading album-text" style="font-weight:bold">
                         {{album.name}}
                     </router-link>
-                    <router-link :to="{name:'Album',params:{id:album.id}}" tag="div" class="album-text">
+                    <router-link :to="{name:'ArtistGeneral',params:{id:album.authorId}}"  tag="div" class="album-text">
                         {{album.authorName}}
                     </router-link>
                     <div class="grey--text">{{album.recordDate}}</div>

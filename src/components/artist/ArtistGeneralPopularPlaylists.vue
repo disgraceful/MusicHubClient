@@ -2,7 +2,7 @@
     <v-card>
         <v-card-title primary-title>
                 <div class="title" style="width:200px">
-                    Popular tracks
+                    Popular playlists
                 </div>
             </v-card-title>
         <v-container fluid grid-list-xl>
