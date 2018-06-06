@@ -1,11 +1,11 @@
 <template>
     <v-container fluid grid-list-md>
-        <carousel :perPage="8" :paginationEnabled="false" :navigationEnabled="false">
+        <carousel :perPage="7" :paginationEnabled="false" :navigationEnabled="false">
             <slide v-for="item in items" :key="item.name">
                 <v-flex xs11>
                     <v-card id="album-card" flat>
-                        <v-card-media :src="item.imgPath" height="200px">
-                             <v-btn relative fab left medium color="pink" class="fab-icon">
+                        <v-card-media :src="item.imgPath" height="250px">
+                            <v-btn relative fab left medium color="pink" class="fab-icon">
                                 <v-icon medium>favorite_border</v-icon>
                             </v-btn>
                             <v-btn relative fab left medium color="yellow" class="fab-icon">
@@ -14,8 +14,9 @@
                         </v-card-media>
                         <v-card-title>
                             <div>
-                                <div class="text-black">
-                                    {{item.name}}</div>
+                                <router-link :to="{name:'Album',params:{id:item.id}}" tag="div" class="text-black">
+                                    {{item.name}}
+                                </router-link>
                                 <router-link :to="{name:'ArtistGeneral',params:{id:item.authorId}}" tag="div" class="text-grey">
                                     {{item.authorName}}
                                 </router-link>
@@ -69,8 +70,8 @@
     }
 
     .fab-icon {
-        top: 70px;
-        left: 30px;
+        top: 95px;
+        left: 45px;
         display: none;
     }
 

@@ -84,7 +84,7 @@
 <style>
     .footer {
        height: 75px;
-        color: white;
-        z-index: -1;
+        background-color: white;
+        z-index: 999;
     }
 </style>
