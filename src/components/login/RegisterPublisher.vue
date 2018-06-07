@@ -8,14 +8,23 @@
                     </div>
                 </v-card-title>
             </div>
+            <v-container style="padding-top:0px">
+                <v-layout row>
+                    <v-container>
+                        <img :src="require('../../../public/profile.jpeg')" height="150px" />
+                    </v-container>
+                </v-layout>
+                <v-layout>
+                    <v-btn>Upload image</v-btn>
+                </v-layout>
+            </v-container>
             <v-container fluid>
                 <v-form v-model="valid">
+                    <v-text-field label="Artist name" v-model="artist" :rules="artistRules" required></v-text-field>
                     <v-text-field label="Login" v-model="login" :rules="loginRules" required></v-text-field>
                     <v-text-field label="E-mail" v-model="email" :rules="emailRules" required></v-text-field>
                     <v-text-field label="Password" v-model="password" :rules="passwordRules" required></v-text-field>
-                    <v-text-field label="Confirm password" v-model="confirm" :rules="confrimRules" required></v-text-field>
-                    <v-text-field label="Artist name" v-model="artist" :rules="artistRules" required></v-text-field>
-                    <!-- <v-text-field label="Special code" v-model="confirm" :rules="confrimRules" required></v-text-field> -->
+                    <v-text-field label="Confirm password" v-model="confirm" :rules="confrimRules" required></v-text-field>                   
                     <v-btn @click="submit" :disabled="!valid">submit</v-btn>
                 </v-form>
             </v-container>
@@ -83,7 +92,7 @@
 .register  {
         width: 600px  !important;
         position: fixed  !important;
-        top: 25%  !important;
+        top: 7%  !important;
         left: 50%  !important;
         margin-left: -300px  !important; 
     }

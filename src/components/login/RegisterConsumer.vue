@@ -11,7 +11,7 @@
             <v-container style="padding-top:0px">
                 <v-layout row>
                     <v-container>
-                        <img src="http://via.placeholder.com/150x150" height="150px" />
+                        <img :src="require('../../../public/profile.jpeg')" height="150px" />
                     </v-container>
                 </v-layout>
                 <v-layout>
@@ -22,62 +22,48 @@
                 <v-form ref="form" v-model="valid" lazy-validation>
                     <v-text-field label="Username" v-model="username" :rules="usernameRules" required></v-text-field>
                     <v-text-field label="E-mail" v-model="email" :rules="emailRules" required></v-text-field>
-                    <v-text-field label="Password" v-model="password" :rules="passwordRules" required></v-text-field>
-                    <v-text-field label="Confirm password" v-model="confirm" :rules="confirmRules" required></v-text-field>
+                    <v-text-field label="Password" v-model="password" type= password :rules="passwordRules" required></v-text-field>
+                    <v-text-field label="Confirm password" v-model="confirm" type= password :rules="confirmRules" required></v-text-field>
                     <v-btn @click="submit" :disabled="!valid">submit</v-btn>
                 </v-form>
             </v-container>
-            <v-layout row>
+             <v-layout row>
                 <v-container>
-                    <v-layout row justify-space-between>
+                    <v-layout row>
                         <v-flex shrink>
                             <v-container fill-height pa-0>
-                                <div style="width:90px;">
-                                    Sign Up with:
-                                </div>
+                                <v-flex shrink style="width:140px; display:inline-block">
+                                    Have an account?
+                                </v-flex>
                             </v-container>
                         </v-flex>
-                        <v-flex shrink>
+                        <v-flex>
                             <v-layout row>
-                                <v-btn round color="primary">fb</v-btn>
-                                <v-btn round color="secondary">tw</v-btn>
-                                <v-btn round color="error">g+</v-btn>
+                                 <v-btn round color="primary" :to="{name:'Login'}">
+                                   Log in
+                                </v-btn>
                             </v-layout>
                         </v-flex>
                     </v-layout>
                     <v-layout row>
                         <v-flex shrink>
                             <v-container fill-height pa-0>
-                                <div class="text-xs-center">
-                                    <div style="width:140px">
-                                        OR
-                                    </div>
-                                </div>
+                                <v-flex shrink style="width:140px; display:inline-block">
+                                    You are a publisher?
+                                </v-flex>
                             </v-container>
                         </v-flex>
-                        <v-flex shrink>
-                            <v-btn round color="primary" :to="{name:'RegisterPublisher'}">
-                                Sign Up as Publisher
-                            </v-btn>
+                        <v-flex>
+                            <v-layout row>
+                                <v-btn round color="primary" :to="{name:'RegisterPublisher'}">
+                                    Sign Up as Publisher
+                                </v-btn>
+                            </v-layout>
                         </v-flex>
                     </v-layout>
-                    <v-layout row>
-                        <v-flex shrink>
-                            <v-container fill-height pa-0>
-                                <div class="text-xs-center">
-                                    <div style="width:90px">
-                                        Have an account?
-                                    </div>
-                                </div>
-                            </v-container>
-                        </v-flex>
-                        <v-flex shrink>
-                            <v-btn round color="primary" :to="{name:'Login'}">
-                                Log in
-                            </v-btn>
-                        </v-flex>
-                    </v-layout>
+
                 </v-container>
+            
             </v-layout>
         </v-card>
     </div>

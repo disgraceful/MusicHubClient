@@ -123,7 +123,7 @@
                 },
                 currentAudio: null,
                 currentDuration: 0,
-                progress: 15,
+                progress: 0,
                 currentIndex: 0,
             }
         },
