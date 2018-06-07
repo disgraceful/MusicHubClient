@@ -1,81 +1,82 @@
 <template>
     <div class="player">
-        <v-card >
-                <v-progress-linear height="3" v-model="progress" class="my-0"></v-progress-linear>
-                <v-layout row>
-                    <v-flex shrink>
-                        <v-container pa-0 fill-height>
-                            <v-btn icon @click="prev()">
-                                <v-icon>fast_rewind</v-icon>
+        <v-card>
+            <v-progress-linear height="3" v-model="progress" class="my-0"></v-progress-linear>
+            <v-layout row>
+                <v-flex shrink>
+                    <v-container pa-0 fill-height>
+                        <v-btn icon @click="prev()">
+                            <v-icon>fast_rewind</v-icon>
+                        </v-btn>
+                    </v-container>
+                </v-flex>
+                <v-flex shrink>
+                    <v-container pa-0 fill-height>
+                        <v-btn icon @click="play(songs[currentIndex])">
+                            <v-icon large>{{playing?'pause':'play_arrow'}}</v-icon>
+                        </v-btn>
+                    </v-container>
+                </v-flex>
+                <v-flex shrink>
+                    <v-container pa-0 fill-height>
+                        <v-btn icon @click="next()">
+                            <v-icon>fast_forward</v-icon>
+                        </v-btn>
+                    </v-container>
+                </v-flex>
+                <v-flex shrink>
+                    <v-container pa-0 fill-height style="height:75px">
+                        <img src="http://localhost:8888/resources/ArchEnemy/RiseOfTheTyrant/Folder.jpg" width="55px" height="55px" />
+                    </v-container>
+                </v-flex>
+                <v-card-title>
+                    <div class="text-xs-left" style="width:120px">
+                        <div class="text--black">{{currentSong.name}}</div>
+                        <div class="grey--text">{{currentSong.author}}</div>
+                    </div>
+                </v-card-title>
+                <v-flex shrink>
+                    <v-container pa-0 fill-height>
+                        <v-btn icon @click="favorited=!favorited">
+                            <v-icon color="red">
+                                {{ favorited ? 'favorite' : 'favorite_border' }}
+                            </v-icon>
+                        </v-btn>
+                    </v-container>
+                </v-flex>
+                <v-flex shrink>
+                    <v-container pa-0 fill-height>
+                        <v-dialog v-model="playlistDialog" max-width="290">
+                            <v-btn icon slot="activator">
+                                <v-icon>add</v-icon>
                             </v-btn>
-                        </v-container>
-                    </v-flex>
-                    <v-flex shrink>
-                        <v-container pa-0 fill-height>
-                            <v-btn icon @click="play(songs[currentIndex])">
-                                <v-icon large>{{playing?'pause':'play_arrow'}}</v-icon>
-                            </v-btn>
-                        </v-container>
-                    </v-flex>
-                    <v-flex shrink>
-                        <v-container pa-0 fill-height>
-                            <v-btn icon @click="next()">
-                                <v-icon>fast_forward</v-icon>
-                            </v-btn>
-                        </v-container>
-                    </v-flex>
-                    <v-flex shrink>
-                        <v-container pa-0 fill-height style="height:75px">
-                            <img src="http://localhost:8888/resources/ArchEnemy/RiseOfTheTyrant/Folder.jpg" width="55px" height="55px" />
-                        </v-container>
-                    </v-flex>
-                    <v-card-title>
-                        <div class="text-xs-left" style="width:120px">
-                            <div class="text--black">{{currentSong.name}}</div>
-                            <div class="grey--text">{{currentSong.author}}</div>
-                        </div>
-                    </v-card-title>
-                    <v-flex shrink>
-                        <v-container pa-0 fill-height>
-                            <v-btn icon>
-                                <v-icon>favorite_border</v-icon>
-                            </v-btn>
-                        </v-container>
-                    </v-flex>
-                    <v-flex shrink>
-                        <v-container pa-0 fill-height>
-                            <v-dialog v-model="playlistDialog" max-width="290">
-                                <v-btn icon slot="activator">
-                                    <v-icon>add</v-icon>
-                                </v-btn>
-                                <mh-add-dialog :dialog="playlistDialog"></mh-add-dialog>
-                            </v-dialog>
-                        </v-container>
-                    </v-flex>
-                    <v-spacer></v-spacer>
-                    <v-flex shrink>
-                        <v-container pa-0 fill-height>
-                            <v-btn icon>
-                                <v-icon>shuffle</v-icon>
-                            </v-btn>
-
-                        </v-container>
-                    </v-flex>
-                    <v-flex shrink>
-                        <v-container pa-0 fill-height>
-                            <v-btn icon>
-                                <v-icon>repeat</v-icon>
-                            </v-btn>
-                        </v-container>
-                    </v-flex>
-                    <v-flex shrink>
-                        <v-container pa-0 fill-height>
-                            <v-btn icon>
-                                <v-icon>volume_up</v-icon>
-                            </v-btn>
-                        </v-container>
-                    </v-flex>
-                </v-layout>
+                            <mh-add-dialog :dialog="playlistDialog"></mh-add-dialog>
+                        </v-dialog>
+                    </v-container>
+                </v-flex>
+                <v-spacer></v-spacer>
+                <v-flex shrink>
+                    <v-container pa-0 fill-height>
+                        <v-btn icon @click="shuffled=!shuffled" :class="{active:shuffled}">
+                            <v-icon :class="{active:shuffled}">shuffle</v-icon>
+                        </v-btn>
+                    </v-container>
+                </v-flex>
+                <v-flex shrink>
+                    <v-container pa-0 fill-height>
+                        <v-btn icon @click="turnRepeat" :class="{active:repeat||repeatOne}">
+                            <v-icon> {{ repeatOne ? 'repeat_one' : 'repeat' }}</v-icon>
+                        </v-btn>
+                    </v-container>
+                </v-flex>
+                <v-flex shrink>
+                    <v-container pa-0 fill-height>
+                        <v-btn icon>
+                            <v-icon>volume_up</v-icon>
+                        </v-btn>
+                    </v-container>
+                </v-flex>
+            </v-layout>
         </v-card>
     </div>
 </template>
@@ -105,10 +106,14 @@
                         name: "Retard Whore",
                         author: "Demented We Go",
                         duration: "2:03",
-                       // url: '../../../resource/EminemBeautifulPain.mp3',
+                        // url: '../../../resource/EminemBeautifulPain.mp3',
                         image: "http://via.placeholder.com/350x150"
                     }
                 ],
+                favorited: true,
+                shuffled: false,
+                repeat: false,
+                repeatOne: false,
                 playing: false,
                 currentSong: {
                     name: " ",
@@ -118,7 +123,7 @@
                 },
                 currentAudio: null,
                 currentDuration: 0,
-                progress: 0,
+                progress: 15,
                 currentIndex: 0,
             }
         },
@@ -134,7 +139,7 @@
                         this.progress = Math.trunc(this.currentAudio.currentTime / this.currentDuration * 100);
                     });
                 }
-                this.$cookie.set('song',this.currentSong);
+                this.$cookie.set('song', this.currentSong);
                 if (!this.playing) {
                     this.currentAudio.play();
                     this.playing = true;
@@ -168,6 +173,26 @@
             add() {
 
             },
+            turnRepeat() {
+                console.log(this.repeat + ' ' + this.repeatOne)
+                if (!this.repeat) {
+                    if (!this.repeatOne) {
+                        this.repeat = true;
+                        console.log(this.repeat + ' ' + this.repeatOne);
+                        return;
+                    }
+                }
+                if (this.repeat) {
+                    this.repeat = false;
+                    this.repeatOne = true;
+                    return;
+                }
+                if (this.repeatOne) {
+                    this.repeatOne = false;
+                    this.repeat = false;
+                    return;
+                }
+            },
             getDuration(duration) {
                 var a = duration.split(':');
                 return ((+a[0]) * 60 + (+a[1]));
@@ -197,5 +222,9 @@
         height: 75px;
         margin-left: 15%;
         margin-right: 15%;
+    }
+
+    .active {
+        color: orange;
     }
 </style>

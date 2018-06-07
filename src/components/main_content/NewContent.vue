@@ -3,20 +3,10 @@
         <v-card-title>
             <div class="headline">New releases, albums and collections</div>
         </v-card-title>
-
-        <v-container fluid grid-list-md>
+        <v-container fluid grid-list-xl>
             <v-layout row wrap>
-                <v-flex xs2 v-for="index in 30" :key="index">
-                    <v-card>
-                        <v-card-media src="http://via.placeholder.com/350x150" height="150px">
-                        </v-card-media>
-                        <v-card-title>
-                            <div>
-                                <div class="black--text">Album Name {{index}}</div>
-                                <span class="grey--text">Author Name{{index}}</span>
-                            </div>
-                        </v-card-title>
-                    </v-card>
+                <v-flex xs2 v-for="album in newReleases" :key="album.name">
+                    <mh-album :album="album"></mh-album>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -25,7 +15,28 @@
 </template>
 
 <script>
+    import Album from '../shared/AlbumPreview'
     export default {
-
+        data() {
+            return {
+                newReleases: '',
+            };
+        },
+        components: {
+            'mh-album': Album
+        },
+        mounted() {
+            var apiPath = 'http://localhost:8888/album/new';
+            this.$http.get(apiPath, {
+                    headers: {
+                        'Authorization': this.$cookie.get('user-token')
+                    }
+                })
+                .then(response => {
+                    this.newReleases = response.body;
+                }, error => {
+                    console.log(error);
+                });
+        }
     }
 </script>

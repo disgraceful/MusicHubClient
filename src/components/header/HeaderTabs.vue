@@ -22,28 +22,32 @@
     export default {
         data() {
             return {
-                genres: [{
-                    name: "Genre1",
-                    id: 1
-                }, {
-                    name: "Genre2",
-                    id: 2
-                }, {
-                    name: "Genre3",
-                    id: 3
-                }],
+                genres: '',
             };
         },
         computed: {
             userCookie() {
                 return this.$cookie.get('user');
             }
+        },
+        mounted() {
+            var apiPath = 'http://localhost:8888/genre/'
+            this.$http.get(apiPath, {
+                    headers: {
+                        'Authorization': this.$cookie.get('user-token')
+                    }
+                })
+                .then(response => {
+                    this.genres = response.body;
+                }, error => {
+                    console.log(error);
+                });
         }
     }
 </script>
 
 <style scoped>
- #tabs {
+    #tabs {
         display: flex;
         padding-left: 5px;
         padding-right: 5px;
