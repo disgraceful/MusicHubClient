@@ -8,8 +8,8 @@
         <v-menu :nudge-width="100" offset-y>
             <v-btn v-if="userCookie" flat depressed slot="activator">
                 <v-avatar size="35px">
-                    <!-- <img :src="user.imgPath"> -->
-                    <img :src="require('../../../public/profile.jpeg')">
+                    <img :src="user.imgPath">
+                    <!-- <img :src="require('../../../public/profile.jpeg')"> -->
                     <v-icon dark>arrow_drop_down</v-icon>
                 </v-avatar>
             </v-btn>
@@ -20,8 +20,18 @@
 
                 <v-divider></v-divider>
 
-                <router-link v-for="action in userActions" :key="action.name" tag="v-list-tile" :to="{name:action.route,params:{id:user.username}}">
-                    <v-list-tile-title v-text="action.name"></v-list-tile-title>
+
+                <router-link v-if="!showIfRole" tag="v-list-tile" :to="{name:'ConsumerTracks',params:{id:user.username}}">
+                    <v-list-tile-title v-text="myMusicTile"></v-list-tile-title>
+                </router-link>
+                <router-link v-if="showIfRole" tag="v-list-tile" :to="{name:'PublisherTracks',params:{id:user.username}}">
+                    <v-list-tile-title v-text="myMusicTile"></v-list-tile-title>
+                </router-link>
+                <router-link v-if="!showIfRole" tag="v-list-tile" :to="{name:'ConsumerSettings',params:{id:user.username}}">
+                    <v-list-tile-title v-text="settingsTile"></v-list-tile-title>
+                </router-link>
+                <router-link v-if="showIfRole" tag="v-list-tile" :to="{name:'PublisherTracks',params:{id:user.username}}">
+                    <v-list-tile-title v-text="settingsTile"></v-list-tile-title>
                 </router-link>
                 <v-list-tile @click="logout">
                     <v-list-tile v-text="logoutTile"></v-list-tile>
@@ -38,16 +48,8 @@
             return {
                 userImgPath: "",
                 logoutTile: "Logout",
-                userActions: [{
-                        name: "My Music",
-                        route: "ConsumerTracks"
-                    },
-                    {
-                        name: "Settings",
-                        route: "ConsumerSettings"
-                    }
-
-                ]
+                myMusicTile: "My Music",
+                settingsTile: "Settings",
             };
         },
         computed: {
@@ -61,6 +63,9 @@
                 } else {
                     return "";
                 }
+            },
+            showIfRole() {
+                return this.user.roleId === '1';
             }
         },
         methods: {

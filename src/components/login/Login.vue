@@ -11,7 +11,7 @@
             <v-container fluid>
                 <v-form ref="form" v-model="valid" lazy-validation>
                     <v-text-field label="Username" v-model="username" :rules="usernameRules" required></v-text-field>
-                    <v-text-field label="Password" v-model="password" type= password :rules="passwordRules" required></v-text-field>
+                    <v-text-field label="Password" v-model="password" type=p assword :rules="passwordRules" required></v-text-field>
                     <v-btn @click="submit" :disabled="!valid">submit</v-btn>
                 </v-form>
             </v-container>
@@ -89,7 +89,6 @@
                         })
                         .then(response => {
                             var token_id = response.body.accessToken;
-                            console.log(token_id);
                             this.$cookie.set('user-token', token_id);
                             var token = 'Bearer ' + token_id;
                             this.$http.get('http://localhost:8888/account', {
@@ -99,21 +98,51 @@
                                 })
                                 .then(response => {
                                     var user = response.body;
-                                    this.$http.get('http://localhost:8888/account/consumer', {
-                                            headers: {
-                                                'Authorization': token
-                                            }
-                                        })
-                                        .then(response => {
-                                            user.imgPath = response.body.imgPath;
-                                            window.localStorage.setItem('user', JSON.stringify(user))
-                                            this.$router.push({
-                                                name: 'Home'
+                                    if (user.roleId === '1') {
+                                        this.$http.get('http://localhost:8888/account/publisher', {
+                                                headers: {
+                                                    'Authorization': token
+                                                }
+                                            })
+                                            .then(response => {
+                                                this.$http.get('http://localhost:8888/publisher/' + response
+                                                        .body.id + '/author', {
+                                                            headers: {
+                                                                'Authorization': token
+                                                            }
+                                                        })
+                                                    .then(response => {
+                                                        user.imgPath = response.body.imgPath;
+                                                        window.localStorage.setItem('user', JSON.stringify(
+                                                            user))
+                                                        this.$router.push({
+                                                            name: 'Home'
+                                                        });
+                                                        this.$router.go(this.$router.currentRoute)
+                                                    }, error => {
+                                                        console.log(error);
+                                                    });
+                                            }, error => {
+                                                console.log(error);
                                             });
-                                            this.$router.go(this.$router.currentRoute)
-                                        }, error => {
-                                            console.log(error);
-                                        });
+
+                                    } else {
+                                        this.$http.get('http://localhost:8888/account/consumer', {
+                                                headers: {
+                                                    'Authorization': token
+                                                }
+                                            })
+                                            .then(response => {
+                                                user.imgPath = response.body.imgPath;
+                                                window.localStorage.setItem('user', JSON.stringify(user))
+                                                this.$router.push({
+                                                    name: 'Home'
+                                                });
+                                                this.$router.go(this.$router.currentRoute)
+                                            }, error => {
+                                                console.log(error);
+                                            });
+                                    }
                                 }, error => {
                                     console.log(error);
                                 });
