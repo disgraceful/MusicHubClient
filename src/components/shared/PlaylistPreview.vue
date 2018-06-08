@@ -13,7 +13,7 @@
                 <router-link :to="{name:'',params:{}}" tag="div" class="playlist-text">
                     {{playlist.name}}
                 </router-link>
-                <div class="grey--text">{{playlist.songAmount}} songs {{playlist.rating}} likes</div>
+                <div class="grey--text">{{playlist.songAmount}} songs<span v-if="playlist.rating>0">, {{playlist.rating}} likes</span></div>
             </div>
         </v-card-title>
     </v-card>

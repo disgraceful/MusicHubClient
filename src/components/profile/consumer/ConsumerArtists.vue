@@ -7,23 +7,8 @@
         </v-card-title>
         <v-container fluid grid-list-xl>
             <v-layout row wrap>
-                <v-flex xs2 v-for="index in 30" :key="index">
-                    <v-card :to="{name:'ArtistGeneral'}">
-                        <div class="text-xs-center">
-                            <v-avatar size="200px">
-                                <img src="http://via.placeholder.com/200x200">
-                            </v-avatar>
-                        </div>
-                        
-                        <v-card-title>
-                            <v-flex pa-0>
-                                <div class="text-xs-left">
-                                    <div class="subheading">Artist Name {{index}}</div>
-                                    <div class="grey--text">genre</div>
-                                </div>
-                            </v-flex>
-                        </v-card-title>
-                    </v-card>
+                <v-flex xs2 v-for="index in 3" :key="index">
+                    <mh-artist :artist="artists[index-1]"></mh-artist>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -31,7 +16,29 @@
 </template>
 
 <script>
+    import Artist from '../../shared/ArtistPreview'
     export default {
-        
+        data() {
+            return {
+                artists: '',
+            };
+        },
+        components: {
+            'mh-artist': Artist
+        },
+        mounted() {
+            var apiPath = 'http://localhost:8888/author/top'
+            this.$http.get(apiPath, {
+                    headers: {
+                        'Authorization': this.$cookie.get('user-token')
+                    }
+                })
+                .then(response => {
+                    this.artists = response.body;
+                    
+                }, error => {
+                    console.log(error);
+                });
+        }
     }
 </script>

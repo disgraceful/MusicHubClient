@@ -3,15 +3,9 @@
         <v-layout row>
             <v-card-title>
                 <div>
-                    <div class="headline">Tracks</div>
+                    <div class="title">Tracks</div>
                 </div>
             </v-card-title>
-            <v-container>
-                <v-flex>
-                    <v-btn small color="white">All</v-btn>
-                    <v-btn small color="white">Favorites</v-btn>
-                </v-flex>
-            </v-container>
         </v-layout>
         <v-layout row>
             <v-flex xs12>
@@ -27,7 +21,7 @@
                             </v-flex>
                             <v-flex xs11>
                                 <v-card-title>
-                                    <v-flex xs6 >
+                                    <v-flex xs6>
                                         <div class="text-xs-left">
                                             <v-layout row>
                                                 <div class="grey--text">Track Name</div>
@@ -35,7 +29,7 @@
                                             </v-layout>
                                         </div>
                                     </v-flex>
-                                     <v-flex xs6 >
+                                    <v-flex xs6>
                                         <div class="text-xs-left">
                                             <v-layout row>
                                                 <div class="grey--text">Artist Name</div>
@@ -51,18 +45,37 @@
             </v-flex>
         </v-layout>
         <v-layout row wrap>
-            <v-flex xs12 v-for="item in 30" :key="item">
-                <mh-song-mini :number="item"></mh-song-mini>
+            <v-flex xs12 v-for="(song,index) in songs" :key="song.name">
+                <mh-song-mini :number="index+1" :song="song"></mh-song-mini>
             </v-flex>
         </v-layout>
     </v-card>
 </template>
 
 <script>
-    import SongMini from '../../shared/SongMini'
+    import SongMini from '../../shared/ConsumerSongMini'
     export default {
+        data() {
+            return {
+                songs: ''
+            };
+        },
         components: {
             'mh-song-mini': SongMini
+        },
+        mounted() {
+            var apiPath = 'http://localhost:8888/consumer/playlists/songs'
+            this.$http.get(apiPath, {
+                    headers: {
+                        'Authorization': this.$cookie.get('user-token')
+                    }
+                })
+                .then(response => {
+                    this.songs = response.body;
+                    console.log(getArtist);
+                }, error => {
+                    console.log(error);
+                });
         }
     }
 </script>

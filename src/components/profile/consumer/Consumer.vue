@@ -3,9 +3,10 @@
         <v-container fluid>
             <v-layout row>
                 <v-flex shrink>
-                    <div style="width:80px">
-                        <v-avatar size="60px">
-                            <img src="http://via.placeholder.com/60x60">
+                    <div style="width:100px">
+                        <v-avatar size="80px">
+                            <!-- <img :src="user.imgPath"> -->
+                            <img :src="require('../../../../public/profile.jpeg')">
                         </v-avatar>
                     </div>
                 </v-flex>
@@ -15,7 +16,8 @@
                             Favorites
                         </div>
                         <div class="headline">
-                            Login
+                            <!-- {{user.username}} -->
+                            SomeGuy
                         </div>
                     </div>
                 </v-flex>
@@ -63,6 +65,17 @@
                     route: "ConsumerHistory"
                 }]
             }
+        },
+        computed: {
+            user() {
+                var user = JSON.parse(window.localStorage.getItem('user'))
+                if (user) {
+                    return user;
+                } else {
+                    return "";
+                }
+            }
         }
+      
     }
 </script>
