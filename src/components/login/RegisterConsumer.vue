@@ -11,23 +11,24 @@
             <v-container style="padding-top:0px">
                 <v-layout row>
                     <v-container>
-                        <img :src="require('../../../public/profile.jpeg')" height="150px" />
+                        <img :src="imageUrl" height="150" v-if="imageUrl" />
                     </v-container>
                 </v-layout>
                 <v-layout>
-                    <v-btn>Upload image</v-btn>
+                    <v-text-field label="Select Image" @click='pickFile' v-model='imageName' prepend-icon='attach_file'></v-text-field>
+                    <input type="file" style="display: none" ref="image" accept="image/*" @change="onFilePicked">
                 </v-layout>
             </v-container>
             <v-container fluid style="padding-top:0px">
                 <v-form ref="form" v-model="valid" lazy-validation>
                     <v-text-field label="Username" v-model="username" :rules="usernameRules" required></v-text-field>
                     <v-text-field label="E-mail" v-model="email" :rules="emailRules" required></v-text-field>
-                    <v-text-field label="Password" v-model="password" type= password :rules="passwordRules" required></v-text-field>
-                    <v-text-field label="Confirm password" v-model="confirm" type= password :rules="confirmRules" required></v-text-field>
+                    <v-text-field label="Password" v-model="password" type=password :rules="passwordRules" required></v-text-field>
+                    <v-text-field label="Confirm password" v-model="confirm" type=password :rules="confirmRules" required></v-text-field>
                     <v-btn @click="submit" :disabled="!valid">submit</v-btn>
                 </v-form>
             </v-container>
-             <v-layout row>
+            <v-layout row>
                 <v-container>
                     <v-layout row>
                         <v-flex shrink>
@@ -39,8 +40,8 @@
                         </v-flex>
                         <v-flex>
                             <v-layout row>
-                                 <v-btn round color="primary" :to="{name:'Login'}">
-                                   Log in
+                                <v-btn round color="primary" :to="{name:'Login'}">
+                                    Log in
                                 </v-btn>
                             </v-layout>
                         </v-flex>
@@ -61,9 +62,7 @@
                             </v-layout>
                         </v-flex>
                     </v-layout>
-
                 </v-container>
-            
             </v-layout>
         </v-card>
     </div>
@@ -79,6 +78,9 @@
                 password: '',
                 confirm: '',
                 imgPath: '',
+                imageName: '',
+                imageUrl: '',
+                imageFile: '',
                 usernameRules: [
                     v => !!v || 'This field is required',
                     v => (v.length <= 15 || v.length >= 4) || 'Login must be <= 14 or >=4 characters'
@@ -108,12 +110,11 @@
                         username: this.username,
                         password: this.password,
                         confirmPassword: this.confirm,
-                        imgPath: this.imgPath
                     }
                     this.$http.post('http://localhost:8888/register', newConsumer)
                         .then(response => {
-                            console.log(response.body);
                             var createdConsumer = response.body;
+                            console.log(createdConsumer);
                             this.$http.post('http://localhost:8888/login', {
                                     username: this.username,
                                     password: this.password
@@ -123,25 +124,43 @@
                                     console.log(token_id);
                                     this.$cookie.set('user-token', token_id);
                                     var token = 'Bearer ' + token_id;
-                                    this.$http.get('http://localhost:8888/account', {
-                                            headers: {
-                                                'Authorization': token
-                                            }
-                                        })
+                                    var formData = new FormData();
+                                    formData.append('file', this.imageFile);
+                                    this.$http.post('http://localhost:8888/upload/consumer/' + createdConsumer.userId,
+                                            formData, {
+                                                headers: {
+                                                    'Authorization': token,
+                                                    'Content-Type': 'multipart/form-data'
+                                                }
+                                            })
                                         .then(response => {
-                                            var user = response.body;
-                                            user.imgPath = createdConsumer.imgPath;
-                                            window.localStorage.setItem('user', JSON.stringify(user))
-                                            this.$router.push({
-                                                name: 'Home'
-                                            });
-                                            this.$router.go(this.$router.currentRoute)
+                                            console.log("OH IM GOING INNNNN!!!!");
+                                            createdConsumer = response.body;
+                                            console.log(createdConsumer);
+                                            this.$http.get('http://localhost:8888/account', {
+                                                    headers: {
+                                                        'Authorization': token
+                                                    }
+                                                })
+                                                .then(response => {
+                                                    var user = response.body;
+                                                    user.imgPath = createdConsumer.imgPath;
+                                                    window.localStorage.setItem('user', JSON.stringify(
+                                                        user));
+                                                    this.$router.push({
+                                                        name: 'Home'
+                                                    });
+                                                    this.$router.go(this.$router.currentRoute);
+                                                }, error => {
+                                                    console.log(error);
+                                                });
                                         }, error => {
                                             console.log(error);
                                         });
                                 }, error => {
                                     console.log(error);
                                 });
+
                         }, error => {
                             console.log(error);
                         });
@@ -149,6 +168,28 @@
             },
             clear() {
                 this.$refs.form.reset()
+            },
+            pickFile() {
+                this.$refs.image.click()
+            },
+            onFilePicked(e) {
+                const files = e.target.files
+                if (files[0] !== undefined) {
+                    this.imageName = files[0].name
+                    if (this.imageName.lastIndexOf('.') <= 0) {
+                        return
+                    }
+                    const fr = new FileReader()
+                    fr.readAsDataURL(files[0])
+                    fr.addEventListener('load', () => {
+                        this.imageUrl = fr.result
+                        this.imageFile = files[0] // this is an image file that can be sent to server...
+                    })
+                } else {
+                    this.imageName = ''
+                    this.imageFile = ''
+                    this.imageUrl = ''
+                }
             }
         }
     }

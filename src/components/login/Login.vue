@@ -43,7 +43,6 @@
                         </v-flex>
                         <v-flex>
                             <v-layout row>
-
                                 <v-btn round color="primary" :to="{name:'RegisterConsumer'}">
                                     Sign Up
                                 </v-btn>
