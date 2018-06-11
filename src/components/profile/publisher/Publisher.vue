@@ -3,13 +3,13 @@
         <v-container fluid>
             <v-layout>
                 <v-avatar size="200px">
-                    <img src="http://via.placeholder.com/200x200">
+                    <img :src="artist.imgPath">
                 </v-avatar>
                 <v-container>
                     <v-flex style="padding:20px">
                         <div>
-                            <div class="headline">Artist Name</div>
-                            <div class="grey--text">genre</div>
+                            <div class="headline">{{artist.name}}</div>
+                            <div class="grey--text">{{artist.genreName}}</div>
                         </div>
                     </v-flex>
                     <mh-pub-upload></mh-pub-upload>
@@ -33,6 +33,7 @@
     export default {
         data() {
             return {
+                artist: '',
                 tabs: [{
                     name: "Tracks",
                     route: "PublisherTracks"
@@ -42,32 +43,32 @@
                 }]
             }
         },
-        computed: {
-            artist() {
-                return getArtist;
-            }
-        },
+
         components: {
             'mh-pub-upload': PublisherUpload
         },
-        methods: {
-            getArtist() {
-                var apiPath = 'http://localhost:8888/author/' + this.$route.params.id;
-                var getArtist;
-                this.$http.get('apiPath', {
-                        headers: {
-                            'Authorization': this.$cookie.get('user-token')
-                        }
-                    })
-                    .then(response => {
-                        getArtist = response.body;
-                        return getArtist;
-                    }, error => {
-                        console.log(error);
-                    });
-            }
+        mounted() {
+            this.$http.get('http://localhost:8888/account/publisher', {
+                    headers: {
+                        'Authorization': this.$cookie.get('user-token')
+                    }
+                })
+                .then(response => {
+                    this.$http.get('http://localhost:8888/publisher/' + response
+                            .body.id + '/author', {
+                                headers: {
+                                    'Authorization': this.$cookie.get('user-token')
+                                }
+                            })
+                        .then(response => {
+                            this.artist = response.body;
+                        }, error => {
+                            console.log(error);
+                        });
+                }, error => {
+                    console.log(error);
+                });
         }
-
     }
 </script>
 
