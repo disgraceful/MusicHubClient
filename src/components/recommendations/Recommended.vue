@@ -1,32 +1,11 @@
 <template>
     <v-layout>
         <v-flex>
-            <v-card>
+            <v-card flat>
                 <v-card-title primary-title>
                     <h1>Recommendations</h1>
                 </v-card-title>
-                <v-card>
-                    <v-card-title primary-title>
-                        <h3>Recommended playlists</h3>
-                    </v-card-title>
-                    <v-container fluid>
-                        <v-layout row>
-                            <v-flex xs2>
-                                <v-card>
-                                    <v-card-media src="http://via.placeholder.com/350x150" height="150px">
-                                    </v-card-media>
-                                    <v-card-title>
-                                        <div>
-                                            <div class="black--text">Playlist name</div>
-                                            <div class="grey--text">50 songs</div>
-                                        </div>
-                                    </v-card-title>
-                                </v-card>
-                            </v-flex>
-                        </v-layout>
-                    </v-container>
                 </v-card>
-            </v-card>
             <v-card>
                 <v-card-title primary-title>
                     <h3>Recommended based on Genre</h3>
@@ -39,7 +18,6 @@
                     </v-layout>
                 </v-container>
             </v-card>
-
             <v-card>
                 <v-card-title primary-title>
                     <h3>Recommended based on Artist</h3>
@@ -60,7 +38,6 @@
                     </v-layout>
                 </v-container>
             </v-card>
-
             <v-card>
                 <v-card-title primary-title>
                     <h3>Recommended Songs of Artist</h3>
@@ -80,8 +57,16 @@
 <script>
     import Song from '../shared/SongUnlisted'
     export default {
+        data(){
+            return{
+            sognsGenre:'',
+            };
+        },
         components: {
             'mh-song-unlisted': Song
+        },
+        mounted(){
+
         }
     }
 </script>

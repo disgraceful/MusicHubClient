@@ -1,6 +1,6 @@
 <template>
     <v-card id="playlist-card" flat> 
-        <v-card-media :src="playlist.imgPath" height="200px">
+        <v-card-media :src="playlist.imgPath" height="220px">
          <v-btn relative fab left medium color="pink" class="fab-icon">
                     <v-icon medium>favorite_border</v-icon>
                 </v-btn>

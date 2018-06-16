@@ -1,7 +1,6 @@
 <template>
     <v-toolbar dark color="primary">
         <v-btn :to="{name:'Home'}" flat > MusicHub </v-btn>
-        <mh-header-search></mh-header-search>
         <v-spacer></v-spacer>
         <mh-header-tabs></mh-header-tabs>
         <v-spacer></v-spacer>

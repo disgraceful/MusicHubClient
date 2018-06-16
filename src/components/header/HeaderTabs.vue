@@ -4,7 +4,7 @@
             <router-link :to="{name:'Home'}" tag="v-tab">Home</router-link>
             <router-link :to="{name:'Recommended'}" tag="v-tab">Recommended</router-link>
             <v-menu :nudge-width="100" offset-y >
-                <v-btn flat depressed slot="activator" v-show="userCookie">
+                <v-btn flat depressed slot="activator">
                     Genres
                     <v-icon dark>arrow_drop_down</v-icon>
                 </v-btn>

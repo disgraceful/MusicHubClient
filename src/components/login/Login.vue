@@ -11,7 +11,7 @@
             <v-container fluid>
                 <v-form ref="form" v-model="valid" lazy-validation>
                     <v-text-field label="Username" v-model="username" :rules="usernameRules" required></v-text-field>
-                    <v-text-field label="Password" v-model="password" type=p assword :rules="passwordRules" required></v-text-field>
+                    <v-text-field label="Password" v-model="password" type= password :rules="passwordRules" required></v-text-field>
                     <v-btn @click="submit" :disabled="!valid">submit</v-btn>
                 </v-form>
             </v-container>
