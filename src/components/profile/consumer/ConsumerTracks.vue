@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card flat>
         <v-layout row>
             <v-card-title>
                 <div>
@@ -49,6 +49,7 @@
                 <mh-song-mini :number="index+1" :song="song"></mh-song-mini>
             </v-flex>
         </v-layout>
+        <div style="height:75px;"></div>
     </v-card>
 </template>
 

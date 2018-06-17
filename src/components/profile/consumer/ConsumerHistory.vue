@@ -1,16 +1,18 @@
 <template>
-    <v-card>
+    <v-card flat>
         <v-card-title>
             <div class="headline">Last played tracks</div>
         </v-card-title>
-        <v-container fluid grid-list-lg>
+        <v-container pa-0 fluid grid-list-lg>
             <v-layout row wrap>
                 <v-flex xs12 v-for="song in songs" :key="song.name">
                     <mh-song-unlisted :song="song"></mh-song-unlisted>
                 </v-flex>
             </v-layout>
         </v-container>
+         <div style="height:75px;"></div>
     </v-card>
+     
 </template>
 
 <script>
@@ -40,3 +42,10 @@
         }
     }
 </script>
+
+<style scoped>
+  .container.grid-list-lg .layout .flex {
+        padding: 0px;
+    }
+ 
+</style>

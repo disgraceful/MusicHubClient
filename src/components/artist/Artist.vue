@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card flat>
         <v-container fluid>
             <v-layout>
                 <v-avatar size="220px">

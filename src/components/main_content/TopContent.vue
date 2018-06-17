@@ -15,6 +15,7 @@
             </v-card-title>
             <mh-carousel :items="topSongs"></mh-carousel>
         </v-card>
+         <div style="height:75px"></div>
     </v-card>
 </template>
 

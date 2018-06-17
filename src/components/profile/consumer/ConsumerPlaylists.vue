@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card flat>
         <v-card-title>
             <div>
                 <div class="headline">Playlists</div>
@@ -12,6 +12,7 @@
                 </v-flex>
             </v-layout>
         </v-container>
+        <div style="height:315px;"></div>
     </v-card>
 </template>
 

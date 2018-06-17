@@ -4,6 +4,7 @@
         <mh-artist-popular-albums></mh-artist-popular-albums>
         <mh-artist-popular-playlists></mh-artist-popular-playlists>
         <mh-artist-similar></mh-artist-similar>
+        <div style="height:75px;"></div>
     </v-card>
 </template>
 

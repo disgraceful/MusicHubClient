@@ -12,6 +12,7 @@
                 </v-flex>
             </v-layout>
         </v-container>
+        <div style="height:230px;"></div>
     </v-card>
 </template>
 
@@ -34,8 +35,7 @@
                     }
                 })
                 .then(response => {
-                    this.albums = response.body;
-                   
+                    this.albums = response.body;                
                 }, error => {
                     console.log(error);
                 });

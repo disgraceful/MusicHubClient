@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card flat>
         <v-layout row>
             <v-card-title primary-title>
                 <div class="title" style="width:200px">

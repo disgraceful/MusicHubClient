@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-card style="height:100%">
+        <v-card flat>
             <v-container fluid>
                 <v-layout>
                     <img :src="album.imgPath" height="220px">
@@ -8,12 +8,12 @@
                         <v-flex style="padding:30px;paddint-top:20px;padding-bottom:20px">
                             <div>
                                 <div class="headline">{{album.name}}</div>
-                                <router-link tag="div" class="text-black" :to="{name:'Artist',params:{id:album.authorId}}">
+                                <router-link tag="div" class="text-black" :to="{name:'ArtistGeneral',params:{id:album.authorId}}">
                                     {{album.authorName}}
                                 </router-link>
 
                                 <div class="grey--text">
-                                    <router-link tag="div" class="text-black" :to="{name:'Artist',params:{id:album.authorId}}">
+                                    <router-link tag="div" class="text-black" :to="{name:'Genre',params:{id:album.authorId}}">
                                         {{album.genreName}}</router-link>{{album.recordDate}}</div>
                             </div>
                         </v-flex>
@@ -36,10 +36,9 @@
                     <mh-album-song :number="index+1" :song="song"></mh-album-song>
                 </v-flex>
             </v-layout>
+            <div style="height:77px;"></div>
         </v-card>
-        <div class="footer">
-
-        </div>
+        
     </div>
 </template>
 
@@ -81,10 +80,3 @@
         }
     }
 </script>
-<style>
-    .footer {
-       height: 75px;
-        background-color: white;
-        z-index: 999;
-    }
-</style>

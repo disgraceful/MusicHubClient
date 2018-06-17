@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card flat>
         <v-card-title>
             <div class="headline">Popular right now</div>
         </v-card-title>
@@ -10,6 +10,7 @@
                 </v-flex>
             </v-layout>
         </v-container>
+         <div style="height:75px"></div>
     </v-card>
 </template>
 
