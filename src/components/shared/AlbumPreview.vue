@@ -35,11 +35,12 @@
 <style scoped>
     .album-text {
         color: black !important;
-        cursor: pointer;
+        
     }
 
     .album-text:hover {
         color: red !important;
+        cursor: pointer !important;
     }
 
     .container {

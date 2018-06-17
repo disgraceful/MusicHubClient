@@ -1,7 +1,7 @@
 <template>
     <v-card id="artist-card" flat>
         <div class="text-xs-center">
-            <v-avatar size="200px">
+            <v-avatar size="220px">
                 <v-btn absolute fab medium color="pink" class="fab-icon">
                     <v-icon medium>favorite_border</v-icon>
                 </v-btn>

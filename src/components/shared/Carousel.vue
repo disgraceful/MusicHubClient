@@ -56,6 +56,7 @@
     .text-black:hover,
     .text-grey:hover {
         color: red;
+        cursor: pointer;
     }
 
     #album-card {

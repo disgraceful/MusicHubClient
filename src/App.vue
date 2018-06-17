@@ -28,7 +28,7 @@
     flex-shrink: 1
   }
 
-  .flex.shrink {
+  .flex.grow {
     flex-shrink: 0;
     flex-grow: 1
   }

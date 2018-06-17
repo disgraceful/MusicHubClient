@@ -8,13 +8,12 @@
                         <v-flex style="padding:30px;paddint-top:20px;padding-bottom:20px">
                             <div>
                                 <div class="headline">{{album.name}}</div>
-                                <router-link tag="div" class="text-black" :to="{name:'ArtistGeneral',params:{id:album.authorId}}">
+                                <router-link tag="div" class="black-text" :to="{name:'ArtistGeneral',params:{id:album.authorId}}">
                                     {{album.authorName}}
                                 </router-link>
-
-                                <div class="grey--text">
-                                    <router-link tag="div" class="text-black" :to="{name:'Genre',params:{id:album.authorId}}">
-                                        {{album.genreName}}</router-link>{{album.recordDate}}</div>
+                                <router-link tag="div" class="grey-text" :to="{name:'Genre',params:{id:album.authorId}}">
+                                    {{album.genreName}}</router-link>
+                                <span class="grey--text">{{album.recordDate}}</span>
                             </div>
                         </v-flex>
                         <v-layout row wrap style="padding-top:20px;padding-left:20px">
@@ -38,7 +37,7 @@
             </v-layout>
             <div style="height:77px;"></div>
         </v-card>
-        
+
     </div>
 </template>
 
@@ -80,3 +79,19 @@
         }
     }
 </script>
+
+<style scoped>
+    .black-text {
+        color: black;
+    }
+
+    .grey-text {
+        color: grey;
+    }
+
+    .black-text:hover,
+    .grey-text:hover {
+        color: red;
+        cursor: pointer;
+    }
+</style>
