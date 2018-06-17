@@ -11,15 +11,14 @@
                                 <router-link tag="div" class="black-text" :to="{name:'ArtistGeneral',params:{id:album.authorId}}">
                                     {{album.authorName}}
                                 </router-link>
-                                <router-link tag="div" class="grey-text" :to="{name:'Genre',params:{id:album.authorId}}">
+                                <router-link tag="div" class="grey-text" :to="{name:'Genre',params:{id:album.genreId}}">
                                     {{album.genreName}}</router-link>
                                 <span class="grey--text">{{album.recordDate}}</span>
                             </div>
                         </v-flex>
                         <v-layout row wrap style="padding-top:20px;padding-left:20px">
-                            <v-btn round color="primary">
+                            <v-btn round color="primary" @click="playAll">
                                 <v-icon left>play_arrow</v-icon>Play All</v-btn>
-
                             <v-btn color="white" fab small>
                                 <v-icon>favorite_border</v-icon>
                             </v-btn>
@@ -43,6 +42,9 @@
 
 <script>
     import Song from '../shared/AlbumSong'
+    import {
+        eventBus
+    } from '../../main.js'
     export default {
         data() {
             return {
@@ -52,6 +54,13 @@
         },
         components: {
             'mh-album-song': Song
+        },
+        methods: {
+            playAll() {
+                window.localStorage.setItem('queue', JSON.stringify(
+                    this.songs));
+                eventBus.$emit('playStarted', this.songs);
+            }
         },
         mounted() {
             var apiPath = 'http://localhost:8888/album/' + this.$route.params.id;

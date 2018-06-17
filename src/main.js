@@ -18,7 +18,7 @@ Vue.use(VueResource)
 Vue.use(VueCookie);
 
 
-
+export const eventBus = new Vue();
 const router = new VueRouter({
     routes
 })

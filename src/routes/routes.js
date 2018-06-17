@@ -25,110 +25,117 @@ import Publisher from '../components/profile/publisher/Publisher.vue'
 import PublisherTracks from '../components/profile/publisher/PublisherTracks.vue'
 import PublisherAlbums from '../components/profile/publisher/PublisherAlbums.vue'
 import PublisherUpload from '../components/profile/publisher/PublisherUpload.vue'
+import PlayingQueue from '../components//profile/consumer/PlayingQueue.vue'
 
 export const routes = [{
-    path: '/',
-    component: Home,
-    children: [{
-        path: 'home',
-        component: HomeContent,
-        name: 'Home'
+        path: '/',
+        component: Home,
+        children: [{
+            path: 'home',
+            component: HomeContent,
+            name: 'Home'
+        }, {
+            path: 'new',
+            component: NewContent,
+            name: 'New'
+        }, {
+            path: 'top',
+            component: TopContent,
+            name: 'Top'
+        }, {
+            path: 'trending',
+            component: TrendingContent,
+            name: 'Trending'
+        }]
     }, {
-        path: 'new',
-        component: NewContent,
-        name: 'New'
+        path: '/recommended',
+        component: Recommeded,
+        name: 'Recommended'
     }, {
-        path: 'top',
-        component: TopContent,
-        name: 'Top'
+        path: '/user/:id',
+        component: Consumer,
+        name: 'Consumer',
+        children: [{
+            path: 'tracks',
+            component: ConsumerFavTracks,
+            name: 'ConsumerTracks'
+        }, {
+            path: 'albums',
+            component: ConsumerFavAlbums,
+            name: 'ConsumerAlbums'
+        }, {
+            path: 'artists',
+            component: ConsumerFavArtists,
+            name: 'ConsumerArtists'
+        }, {
+            path: 'playlists',
+            component: ConsumerFavPlaylists,
+            name: 'ConsumerPlaylists'
+        }, {
+            path: 'history',
+            component: ConsumerFavHistory,
+            name: 'ConsumerHistory'
+        }]
     }, {
-        path: 'trending',
-        component: TrendingContent,
-        name: 'Trending'
-    }]
-}, {
-    path: '/recommended',
-    component: Recommeded,
-    name: 'Recommended'
-}, {
-    path: '/user/:id',
-    component: Consumer,
-    name: 'Consumer',
-    children: [{
-        path: 'tracks',
-        component: ConsumerFavTracks,
-        name: 'ConsumerTracks'
+        path: '/artist/:id',
+        component: Artist,
+        children: [{
+            path: '',
+            component: ArtistGeneral,
+            name: 'ArtistGeneral'
+        }, {
+            path: 'tracks',
+            component: ArtistTracks,
+            name: 'ArtistTracks'
+        }, {
+            path: 'albums',
+            component: ArtistAlbums,
+            name: 'ArtistAlbums'
+        }, {
+            path: 'similar',
+            component: ArtistSimilar,
+            name: 'ArtistSimilar'
+        }]
     }, {
-        path: 'albums',
-        component: ConsumerFavAlbums,
-        name: 'ConsumerAlbums'
+        path: '/albums/:id',
+        component: Album,
+        name: 'Album'
     }, {
-        path: 'artists',
-        component: ConsumerFavArtists,
-        name: 'ConsumerArtists'
+        path: '/login',
+        component: Login,
+        name: 'Login'
     }, {
-        path: 'playlists',
-        component: ConsumerFavPlaylists,
-        name: 'ConsumerPlaylists'
+        path: '/register',
+        component: RegisterConsumer,
+        name: 'RegisterConsumer'
     }, {
-        path: 'history',
-        component: ConsumerFavHistory,
-        name: 'ConsumerHistory'
-    }]
-}, {
-    path: '/artist/:id',
-    component: Artist,
-    children: [{
-        path: '',
-        component: ArtistGeneral,
-        name: 'ArtistGeneral'
+        path: '/register/publisher',
+        component: RegisterPublisher,
+        name: 'RegisterPublisher'
     }, {
-        path: 'tracks',
-        component: ArtistTracks,
-        name: 'ArtistTracks'
+        path: '/user/:id/settings',
+        component: ConsumerSettings,
+        name: 'ConsumerSettings'
     }, {
-        path: 'albums',
-        component: ArtistAlbums,
-        name: 'ArtistAlbums'
+        path: '/genre/:id',
+        component: Genre,
+        name: 'Genre'
     }, {
-        path: 'similar',
-        component: ArtistSimilar,
-        name: 'ArtistSimilar'
-    }]
-}, {
-    path: '/albums/:id',
-    component: Album,
-    name: 'Album'
-}, {
-    path: '/login',
-    component: Login,
-    name: 'Login'
-}, {
-    path: '/register',
-    component: RegisterConsumer,
-    name: 'RegisterConsumer'
-}, {
-    path: '/register/publisher',
-    component: RegisterPublisher,
-    name: 'RegisterPublisher'
-}, {
-    path: '/user/:id/settings',
-    component: ConsumerSettings,
-    name: 'ConsumerSettings'
-}, {
-    path: '/genre/:id',
-    component: Genre,
-    name: 'Genre'
-}, {
-    path: '/publisher/:id',
-    component: Publisher,
-    children: [{
-        path: 'tracks',
-        component: PublisherTracks,
-        name: 'PublisherTracks'
-    }, {
-        path: 'albums',
-        component: PublisherAlbums,
-        name: 'PublisherAlbums'
-    }]
-}];
+        path: '/publisher/:id',
+        component: Publisher,
+        children: [{
+            path: 'tracks',
+            component: PublisherTracks,
+            name: 'PublisherTracks'
+        }, {
+            path: 'albums',
+            component: PublisherAlbums,
+            name: 'PublisherAlbums'
+        }]
+    },
+    {
+        path: '/queue',
+        component: PlayingQueue,
+        name: 'Queue'
+    }
+];

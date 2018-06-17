@@ -11,7 +11,7 @@
                 <v-container fluid grid-list-lg>
                     <v-layout row wrap>
                         <v-flex xs12 v-for="index in 6" :key="index">
-                            <mh-song-unlisted :song="songsGenre[index]"></mh-song-unlisted>
+                            <mh-song-unlisted :song="songsGenre[index-1]"></mh-song-unlisted>
                         </v-flex>
                     </v-layout>
                 </v-container>
@@ -34,8 +34,8 @@
                 </v-card-title>
                 <v-container fluid grid-list-lg>
                     <v-layout row justify-space-around>
-                        <v-flex xs2 v-for="index in 3" :key="index">
-                          <mh-artist-preview :artist="artistsArtist[index]"></mh-artist-preview>
+                        <v-flex xs2 v-for="index in 4" :key="index">
+                          <mh-artist-preview :artist="artistsArtist[index-1]"></mh-artist-preview>
                         </v-flex>
                     </v-layout>
                 </v-container>
@@ -58,7 +58,7 @@
                 artistRec1Name:'',
                 artistRec1Id:'',
                 artistsArtist:'',
-                artistRec2:''
+              
             };
         },
         components: {
@@ -100,8 +100,7 @@
                 })
                 .then(response => {
                     this.artistsArtist = response.body;
-                    this.artistRec2.name = this.songsArtist[0].genreName;
-                    this.artistRec1.id = this.songsArtist[0].genreId;
+                   
                 }, error => {
                     console.log(error);
                 });

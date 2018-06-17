@@ -2,7 +2,8 @@
   <v-app>
     <mh-header></mh-header>
     <router-view></router-view>
-    <mh-player v-if="userCookie"></mh-player>
+    <!-- <mh-player v-if="playingQueue"></mh-player> -->
+    <mh-player></mh-player>
   </v-app>
 </template>
 
@@ -15,8 +16,8 @@
       'mh-header': Header,
     },
     computed: {
-      userCookie() {
-        return this.$cookie.get('user-token');
+      playingQueue() {
+        return JSON.parse(window.localStorage.getItem('queue'))
       }
     }
   }

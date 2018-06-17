@@ -6,21 +6,17 @@
             <v-icon left>favorite_border</v-icon>Favorites
         </v-btn>
         <v-menu :nudge-width="100" offset-y>
-            <v-btn v-if="userCookie" flat depressed slot="activator">
+            <v-btn large v-if="userCookie" flat depressed slot="activator">
                 <v-avatar size="35px">
-                    <img :src="user.imgPath">
-                    <!-- <img :src="require('../../../public/profile.jpeg')"> -->
-                    <v-icon dark>arrow_drop_down</v-icon>
+                    <img :src="user.imgPath">    
                 </v-avatar>
+                 <v-icon dark>arrow_drop_down</v-icon>
             </v-btn>
             <v-list>
                 <v-list-tile>
                     <v-list-tile v-text="user.username"></v-list-tile>
                 </v-list-tile>
-
                 <v-divider></v-divider>
-
-
                 <router-link v-if="!showIfRole" tag="v-list-tile" :to="{name:'ConsumerTracks',params:{id:user.username}}">
                     <v-list-tile-title v-text="myMusicTile"></v-list-tile-title>
                 </router-link>
@@ -36,7 +32,6 @@
                 <v-list-tile @click="logout">
                     <v-list-tile v-text="logoutTile"></v-list-tile>
                 </v-list-tile>
-
             </v-list>
         </v-menu>
     </div>

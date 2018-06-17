@@ -30,9 +30,9 @@
                     </v-container>
                 </v-flex>
                 <v-card-title>
-                    <div class="text-xs-left" style="width:120px">
+                    <div class="text-xs-left" style="width:180px">
                         <div class="text--black">{{currentSong.name}}</div>
-                        <div class="grey--text">{{currentSong.author}}</div>
+                        <div class="grey--text">{{currentSong.authorName}}</div>
                     </div>
                 </v-card-title>
                 <v-flex shrink>
@@ -83,33 +83,14 @@
 
 <script>
     import AddToPlaylist from './AddToPlaylistDialog'
+      import {
+        eventBus
+    } from '../../main.js'
     export default {
         data() {
             return {
-                progressBarHovered: false,
+                songs:[],
                 playlistDialog: false,
-                songs: [{
-                        name: "I Will Live Again",
-                        author: "Arch Enemy",
-                        duration: "3:52",
-                        //url: '../../../resource/JohnCenaMyTimeIsNow.mp3',
-                        image: "http://localhost:8888/resources/ArchEnemy/RiseOfTheTyrant/Folder.jpg"
-                    },
-                    {
-                        name: "Dead Inside",
-                        author: "Arch Enemy",
-                        duration: "4:02",
-                        //url: '../../../resource/TaylorSwiftEyesOpen.mp3',
-                        image: "http://via.placeholder.com/350x150"
-                    },
-                    {
-                        name: "Retard Whore",
-                        author: "Demented We Go",
-                        duration: "2:03",
-                        // url: '../../../resource/EminemBeautifulPain.mp3',
-                        image: "http://via.placeholder.com/350x150"
-                    }
-                ],
                 favorited: true,
                 shuffled: false,
                 repeat: false,
@@ -201,8 +182,16 @@
         components: {
             'mh-add-dialog': AddToPlaylist,
         },
+        created(){
+            eventBus.$on('playStarted',(songs)=>{
+                this.songs=songs;
+                this.play(this.songs[0]);
+            })
+        },
         mounted() {
-            this.currentSong = this.songs[0];
+            var queue = JSON.parse(window.localStorage.getItem('queue'));
+            this.songs= queue;
+            this.currentSong = queue[0];
             this.currentAudio = new Audio(this.currentSong.url);
             this.currentAudio.addEventListener('canplay', () => {
                 this.currentDuration = this.getDuration(this.currentSong.duration);
