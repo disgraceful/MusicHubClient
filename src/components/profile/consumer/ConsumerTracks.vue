@@ -72,8 +72,7 @@
                     }
                 })
                 .then(response => {
-                    this.songs = response.body;
-                    console.log(getArtist);
+                    this.songs = response.body;/*  */
                 }, error => {
                     console.log(error);
                 });

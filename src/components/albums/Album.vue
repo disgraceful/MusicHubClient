@@ -19,8 +19,8 @@
                         <v-layout row wrap style="padding-top:20px;padding-left:20px">
                             <v-btn round color="primary" @click="playAll">
                                 <v-icon left>play_arrow</v-icon>Play All</v-btn>
-                            <v-btn color="white" fab small>
-                                <v-icon>favorite_border</v-icon>
+                            <v-btn color="white" fab small @click="favorited=!favorited">
+                                <v-icon color="red"> {{ favorited ? 'favorite' : 'favorite_border' }}</v-icon>
                             </v-btn>
                             <v-btn color="white" fab small>
                                 <v-icon>add</v-icon>
@@ -36,7 +36,6 @@
             </v-layout>
             <div style="height:77px;"></div>
         </v-card>
-
     </div>
 </template>
 
@@ -49,7 +48,8 @@
         data() {
             return {
                 album: '',
-                songs: ''
+                songs: '',
+                favorited: ''
             };
         },
         components: {
@@ -57,8 +57,6 @@
         },
         methods: {
             playAll() {
-                window.localStorage.setItem('queue', JSON.stringify(
-                    this.songs));
                 eventBus.$emit('playStarted', this.songs);
             }
         },
@@ -103,4 +101,8 @@
         color: red;
         cursor: pointer;
     }
+
+    .btn--floating.btn--small .icon {
+    font-size: 26px;
+}
 </style>

@@ -78,18 +78,18 @@
                 </v-flex>
             </v-layout>
         </v-card>
-    </div>
+     </div>
 </template>
 
 <script>
     import AddToPlaylist from './AddToPlaylistDialog'
-      import {
+    import {
         eventBus
     } from '../../main.js'
     export default {
         data() {
             return {
-                songs:[],
+                songs: [],
                 playlistDialog: false,
                 favorited: true,
                 shuffled: false,
@@ -106,6 +106,7 @@
                 currentDuration: 0,
                 progress: 0,
                 currentIndex: 0,
+             
             }
         },
         methods: {
@@ -120,7 +121,7 @@
                         this.progress = Math.trunc(this.currentAudio.currentTime / this.currentDuration * 100);
                     });
                 }
-                this.$cookie.set('song', this.currentSong);
+                window.localStorage.setItem('songIndex',this.currentIndex);
                 if (!this.playing) {
                     this.currentAudio.play();
                     this.playing = true;
@@ -182,16 +183,18 @@
         components: {
             'mh-add-dialog': AddToPlaylist,
         },
-        created(){
-            eventBus.$on('playStarted',(songs)=>{
-                this.songs=songs;
+        created() {
+            eventBus.$on('playStarted', (songs) => {
+                this.songs = songs;
                 this.play(this.songs[0]);
+                window.localStorage.setItem('queue', JSON.stringify(this.songs));
             })
         },
         mounted() {
             var queue = JSON.parse(window.localStorage.getItem('queue'));
-            this.songs= queue;
-            this.currentSong = queue[0];
+            this.currentIndex = window.localStorage.getItem('songIndex');
+            this.songs = queue;
+            this.currentSong = queue[this.currentIndex];
             this.currentAudio = new Audio(this.currentSong.url);
             this.currentAudio.addEventListener('canplay', () => {
                 this.currentDuration = this.getDuration(this.currentSong.duration);
@@ -215,5 +218,17 @@
 
     .active {
         color: orange;
+    }
+
+    .volumebar {
+        width: 100px;
+        position:fixed;
+        bottom: 76px;
+        right:15%;
+        height:30px;
+        background-color:white;
+    }
+    .input-group.input-group--slider{
+        padding:5px;
     }
 </style>

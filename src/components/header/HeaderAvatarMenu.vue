@@ -2,7 +2,7 @@
     <div>
         <v-btn v-if="!userCookie" :to="{name:'Login'}" flat depressed>Login</v-btn>
         <v-btn v-if="!userCookie" :to="{name:'RegisterConsumer'}" flat depressed>Register</v-btn>
-        <v-btn v-if="userCookie" :to="{name:'Consumer', params:{id:1}}" flat depressed>
+        <v-btn v-if="userCookie" :to="{name:'ConsumerTracks', params:{id:user.id}}" flat depressed>
             <v-icon left>favorite_border</v-icon>Favorites
         </v-btn>
         <v-menu :nudge-width="100" offset-y>

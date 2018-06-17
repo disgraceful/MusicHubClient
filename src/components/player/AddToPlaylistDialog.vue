@@ -2,18 +2,15 @@
     <v-card>
         <v-card-title class="subheading">Add to playlist</v-card-title>
         <v-list subheader>
-            <v-list-tile v-for="playlist in playlists" :key="playlist">
+            <v-list-tile v-for="playlist in playlists" :key="playlist.name">
                 <v-list-tile-action>
-                    <v-icon >add</v-icon>
+                    <v-icon>add</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title v-html="playlist"></v-list-tile-title>
+                    <v-list-tile-title v-html="playlist.name"></v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
         </v-list>
-        <v-card-actions>
-            <v-text-field hide-details single-line v-model="playlistSearch"></v-text-field>
-        </v-card-actions>
     </v-card>
 </template>
 
@@ -21,12 +18,25 @@
     export default {
         data() {
             return {
-                playlists:[
-                    "Favorites","playlist1","playlist2"
-                ],
-                playlistSearch:""
+                playlists: [],
+           
             }
         },
-        props: ['dialog']
+        props: ['dialog'],
+        mounted() {
+            var apiPath = 'http://localhost:8888/consumer/playlists'
+            this.$http.get(apiPath, {
+                    headers: {
+                        'Authorization': this.$cookie.get('user-token')
+                    }
+                })
+                .then(response => {
+                    this.playlists = response.body;
+
+                }, error => {
+                    console.log(error);
+                });
+        }
+
     }
 </script>

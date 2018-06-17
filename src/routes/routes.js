@@ -26,6 +26,7 @@ import PublisherTracks from '../components/profile/publisher/PublisherTracks.vue
 import PublisherAlbums from '../components/profile/publisher/PublisherAlbums.vue'
 import PublisherUpload from '../components/profile/publisher/PublisherUpload.vue'
 import PlayingQueue from '../components//profile/consumer/PlayingQueue.vue'
+import PlaylistPage from '../components/profile/consumer/Playlist.vue'
 
 export const routes = [{
         path: '/',
@@ -137,5 +138,10 @@ export const routes = [{
         path: '/queue',
         component: PlayingQueue,
         name: 'Queue'
+    },
+    {
+        path: '/user/:username/playlist/:id',
+        component: PlaylistPage,
+        name: 'Playlist'
     }
 ];

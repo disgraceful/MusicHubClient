@@ -10,17 +10,17 @@
                 </v-flex>
             </v-layout>
         </v-container>
-         <div style="height:75px;"></div>
+        <div style="height:75px;"></div>
     </v-card>
-     
+
 </template>
 
 <script>
     import SongUnlisted from '../../shared/SongUnlisted'
     export default {
-        data(){
-            return{
-                songs:'',
+        data() {
+            return {
+                songs: '',
             };
         },
         components: {
@@ -35,7 +35,6 @@
                 })
                 .then(response => {
                     this.songs = response.body;
-                    console.log(getArtist);
                 }, error => {
                     console.log(error);
                 });
@@ -44,8 +43,7 @@
 </script>
 
 <style scoped>
-  .container.grid-list-lg .layout .flex {
+    .container.grid-list-lg .layout .flex {
         padding: 0px;
     }
- 
 </style>
