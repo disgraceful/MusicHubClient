@@ -1,5 +1,6 @@
 <template>
     <div class="player">
+      
         <v-card>
             <v-progress-linear height="3" v-model="progress" class="my-0"></v-progress-linear>
             <v-layout row>
@@ -50,7 +51,7 @@
                             <v-btn icon slot="activator">
                                 <v-icon>add</v-icon>
                             </v-btn>
-                            <mh-add-dialog :dialog="playlistDialog"></mh-add-dialog>
+                            <mh-add-dialog :dialog="playlistDialog" :song="currentSong"></mh-add-dialog>
                         </v-dialog>
                     </v-container>
                 </v-flex>
@@ -78,7 +79,7 @@
                 </v-flex>
             </v-layout>
         </v-card>
-     </div>
+    </div>
 </template>
 
 <script>
@@ -106,9 +107,15 @@
                 currentDuration: 0,
                 progress: 0,
                 currentIndex: 0,
-             
+
             }
         },
+        computed: {
+            text() {
+                return 'Song was added to Playlist'
+            }
+        },
+
         methods: {
             play(song) {
                 if (!this.currentAudio) {
@@ -121,7 +128,7 @@
                         this.progress = Math.trunc(this.currentAudio.currentTime / this.currentDuration * 100);
                     });
                 }
-                window.localStorage.setItem('songIndex',this.currentIndex);
+                window.localStorage.setItem('songIndex', this.currentIndex);
                 if (!this.playing) {
                     this.currentAudio.play();
                     this.playing = true;
@@ -188,11 +195,14 @@
                 this.songs = songs;
                 this.play(this.songs[0]);
                 window.localStorage.setItem('queue', JSON.stringify(this.songs));
-                window.localStorage.setItem('songIndex',0);
+                window.localStorage.setItem('songIndex', 0);
             })
         },
         mounted() {
             var queue = JSON.parse(window.localStorage.getItem('queue'));
+            if (!queue) {
+                return;
+            }
             this.currentIndex = window.localStorage.getItem('songIndex');
             console.log(this.currentIndex);
             this.songs = queue;
@@ -224,13 +234,14 @@
 
     .volumebar {
         width: 100px;
-        position:fixed;
+        position: fixed;
         bottom: 76px;
-        right:15%;
-        height:30px;
-        background-color:white;
+        right: 15%;
+        height: 30px;
+        background-color: white;
     }
-    .input-group.input-group--slider{
-        padding:5px;
+
+    .input-group.input-group--slider {
+        padding: 5px;
     }
 </style>

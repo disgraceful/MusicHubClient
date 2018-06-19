@@ -2,7 +2,7 @@
   <v-app>
     <mh-header></mh-header>
     <router-view></router-view>
-    <mh-player v-if="playingQueue"></mh-player>
+    <mh-player></mh-player>
   </v-app>
 </template>
 
@@ -16,7 +16,12 @@
     },
     computed: {
       playingQueue() {
-        return JSON.parse(window.localStorage.getItem('queue'))
+        var queue = JSON.parse(window.localStorage.getItem('queue'));
+        if (queue) {
+          return queue
+        } else {
+          return false;
+        }
       }
     }
   }

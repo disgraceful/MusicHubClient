@@ -1,5 +1,11 @@
 <template>
     <v-card>
+        <v-snackbar :timeout="timeout" :top="y === 'top'" :bottom="y === 'bottom'" :right="x === 'right'" :left="x === 'left'" v-model="snackbar">
+            {{ text }}
+            <v-btn flat color="pink" @click.native="snackbar = false">
+                <v-icon medium>close</v-icon>
+            </v-btn>
+        </v-snackbar>
         <v-card-title class="subheading">Add to playlist</v-card-title>
         <v-list>
             <v-list-tile v-for="playlist in playlists" :key="playlist.name" class="list-p" @click="add(playlist.id,song.id)">
@@ -18,8 +24,13 @@
     export default {
         data() {
             return {
+                snackbar: false,
+                y: 'top',
+                x: null,
+                mode: '',
+                timeout: 4000,
                 playlists: [],
-             
+                text:'Song was added to Playlist'
             }
         },
         props: ['dialog', 'song'],
@@ -35,9 +46,11 @@
                     })
                     .then(response => {
                         this.$emit('close');
+                        
                     }, error => {
                         console.log(error);
                     });
+                    this.snackbar = true;
             }
         },
         mounted() {
