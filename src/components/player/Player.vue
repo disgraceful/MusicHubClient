@@ -188,11 +188,13 @@
                 this.songs = songs;
                 this.play(this.songs[0]);
                 window.localStorage.setItem('queue', JSON.stringify(this.songs));
+                window.localStorage.setItem('songIndex',0);
             })
         },
         mounted() {
             var queue = JSON.parse(window.localStorage.getItem('queue'));
             this.currentIndex = window.localStorage.getItem('songIndex');
+            console.log(this.currentIndex);
             this.songs = queue;
             this.currentSong = queue[this.currentIndex];
             this.currentAudio = new Audio(this.currentSong.url);

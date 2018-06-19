@@ -72,7 +72,7 @@
                     }
                 })
                 .then(response => {
-                    this.songs = response.body;/*  */
+                    this.songs = response.body;
                 }, error => {
                     console.log(error);
                 });

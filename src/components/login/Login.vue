@@ -11,7 +11,7 @@
             <v-container fluid>
                 <v-form ref="form" v-model="valid" lazy-validation>
                     <v-text-field label="Username" v-model="username" :rules="usernameRules" required></v-text-field>
-                    <v-text-field label="Password" v-model="password" type= password :rules="passwordRules" required></v-text-field>
+                    <v-text-field label="Password" v-model="password" type=password :rules="passwordRules" required></v-text-field>
                     <v-btn @click="submit" :disabled="!valid">submit</v-btn>
                 </v-form>
             </v-container>
@@ -20,7 +20,7 @@
                     <v-layout row>
                         <v-flex shrink>
                             <v-container fill-height pa-0>
-                                <v-flex shrink style="width:90px; display:inline-block">
+                                <v-flex shrink style="width:100px; display:inline-block">
                                     Login with:
                                 </v-flex>
                             </v-container>
@@ -49,7 +49,6 @@
                             </v-layout>
                         </v-flex>
                     </v-layout>
-
                 </v-container>
             </v-layout>
         </v-card>
@@ -104,7 +103,8 @@
                                                 }
                                             })
                                             .then(response => {
-                                                this.$http.get('http://localhost:8888/publisher/' + response
+                                                this.$http.get('http://localhost:8888/publisher/' +
+                                                        response
                                                         .body.id + '/author', {
                                                             headers: {
                                                                 'Authorization': token
@@ -200,8 +200,10 @@
 
     .g-signin-button {
         margin-top: 7px;
-        height: 32px;
-        width: 88px;
+        height: 34px;
+        width: 86px;
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.5;
         font-size: 14px;
         font-weight: 500;
         cursor: pointer;

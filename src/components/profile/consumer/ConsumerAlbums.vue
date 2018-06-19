@@ -8,7 +8,7 @@
         <v-container fluid grid-list-xl>
             <v-layout row wrap>
                 <v-flex xs2 v-for="index in 3" :key="index">
-                    <mh-album :album="albums[index]"></mh-album>
+                    <mh-album :album="albums[index-1]"></mh-album>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -28,7 +28,7 @@
             'mh-album':Album
         },
         mounted(){
-             var apiPath = 'http://localhost:8888/album/top'
+             var apiPath = 'http://localhost:8888/album/new'
             this.$http.get(apiPath, {
                     headers: {
                         'Authorization': this.$cookie.get('user-token')

@@ -26,9 +26,13 @@
                 </v-flex>
                 <v-flex shrink>
                     <v-container class="icon-container" fill-height>
-                        <v-btn relative fab small color="white" class="fab-icon">
-                            <v-icon medium>add</v-icon>
-                        </v-btn>
+                        <v-dialog v-model="playlistDialog" max-width="290">
+                            <v-btn relative fab small color="white" class="fab-icon" slot="activator">
+                                <v-icon medium>add</v-icon>
+                            </v-btn>
+                            <mh-add-dialog :dialog="playlistDialog"></mh-add-dialog>
+                        </v-dialog>
+
                         <v-btn relative fab small color="white" class="fab-icon">
                             <v-icon medium>favorite_border</v-icon>
                         </v-btn>
@@ -44,7 +48,16 @@
 
 
 <script>
+import AddToPlaylist from '../player/AddToPlaylistDialog'
     export default {
+        data() {
+            return {
+                playlistDialog: false
+            }
+        },
+        components: {
+            'mh-add-dialog': AddToPlaylist,
+        },
         props: ['number', 'song']
     }
 </script>
@@ -54,9 +67,10 @@
         width: 400px;
     }
 
-.song-duration{
-    width:60px;
-}
+    .song-duration {
+        width: 60px;
+    }
+
     .number-tile {
         width: 14px;
         display: inline-block;

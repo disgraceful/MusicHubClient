@@ -3,7 +3,7 @@
         <v-tabs right color="primary">
             <router-link :to="{name:'Home'}" tag="v-tab">Home</router-link>
             <router-link :to="{name:'Recommended'}" tag="v-tab">Recommended</router-link>
-            <v-menu :nudge-width="100" offset-y >
+            <v-menu v-if="userCookie" :nudge-width="100" offset-y >
                 <v-btn flat depressed slot="activator">
                     Genres
                     <v-icon dark>arrow_drop_down</v-icon>
@@ -27,7 +27,7 @@
         },
         computed: {
             userCookie() {
-                return this.$cookie.get('user');
+                return this.$cookie.get('user-token');
             }
         },
         mounted() {

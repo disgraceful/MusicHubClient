@@ -2,8 +2,7 @@
   <v-app>
     <mh-header></mh-header>
     <router-view></router-view>
-    <!-- <mh-player v-if="playingQueue"></mh-player> -->
-    <mh-player></mh-player>
+    <mh-player v-if="playingQueue"></mh-player>
   </v-app>
 </template>
 

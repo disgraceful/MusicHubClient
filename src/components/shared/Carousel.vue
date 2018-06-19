@@ -1,12 +1,18 @@
 <template>
     <v-container fluid grid-list-md>
+        <v-snackbar :timeout="timeout" :top="y === 'top'" :bottom="y === 'bottom'" :right="x === 'right'" :left="x === 'left'" v-model="snackbar">
+            {{ text }}
+            <v-btn flat color="pink" @click.native="snackbar = false">
+                <v-icon medium>close</v-icon>
+            </v-btn>
+        </v-snackbar>
         <carousel :perPage="8" :paginationEnabled="false" :navigationEnabled="false">
             <slide v-for="item in items" :key="item.name">
                 <v-flex xs11>
                     <v-card id="album-card" flat>
                         <v-card-media :src="item.imgPath" height="200px">
-                             <v-btn relative fab left medium color="pink" class="fab-icon">
-                                <v-icon medium>favorite_border</v-icon>
+                            <v-btn relative fab left medium color="pink" class="fab-icon" @click="toggle">
+                                <v-icon medium>{{ favorited ? 'favorite' : 'favorite_border' }}</v-icon>
                             </v-btn>
                             <v-btn relative fab left medium color="yellow" class="fab-icon">
                                 <v-icon medium>play_arrow</v-icon>
@@ -36,6 +42,27 @@
     } from 'vue-carousel'
 
     export default {
+        data() {
+            return {
+                favorited: false,
+                snackbar: false,
+                y: 'top',
+                x: null,
+                mode: '',
+                timeout: 4000,
+            };
+        },
+        computed: {
+            text() {
+                return this.favorited ? 'Song was added to Favorites' : 'Song was deleted from Favorites'
+            }
+        },
+        methods: {
+            toggle() {
+                this.snackbar = true;
+                this.favorited = !this.favorited;
+            }
+        },
         props: ['items'],
         components: {
             Carousel,

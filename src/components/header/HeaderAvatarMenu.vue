@@ -2,7 +2,7 @@
     <div>
         <v-btn v-if="!userCookie" :to="{name:'Login'}" flat depressed>Login</v-btn>
         <v-btn v-if="!userCookie" :to="{name:'RegisterConsumer'}" flat depressed>Register</v-btn>
-        <v-btn v-if="userCookie" :to="{name:'ConsumerTracks', params:{id:user.id}}" flat depressed>
+        <v-btn v-if="user.roleId=='2'" :to="{name:'ConsumerTracks', params:{id:user.id}}" flat depressed>
             <v-icon left>favorite_border</v-icon>Favorites
         </v-btn>
         <v-menu :nudge-width="100" offset-y>
@@ -74,6 +74,7 @@
                     .then(response => {
                         this.$cookie.delete('user-token');
                         window.localStorage.removeItem('user');
+                        window.localStorage.removeItem('queue');
                         this.$router.push({
                             name: 'Login'
                         });
