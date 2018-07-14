@@ -90,6 +90,7 @@
     export default {
         data() {
             return {
+               
                 songs: [],
                 playlistDialog: false,
                 favorited: true,
